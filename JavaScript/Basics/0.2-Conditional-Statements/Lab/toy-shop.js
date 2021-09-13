@@ -5,8 +5,7 @@ function isHolidayPossible(input) {
     let bearsCount = Number(input[3]);
     let minionsCount = Number(input[4]);
     let trucksCount = Number(input[5]);
-    let result = puzzlesCount * 2.60 + dollsCount * 3 +
-     bearsCount * 4.10 + minionsCount * 8.20 + trucksCount * 2;
+    let result = puzzlesCount * 2.60 + dollsCount * 3 + bearsCount * 4.10 + minionsCount * 8.20 + trucksCount * 2;
     if (bearsCount + dollsCount + puzzlesCount + minionsCount + trucksCount >= 50) {
         result -= result * 0.25;
     }

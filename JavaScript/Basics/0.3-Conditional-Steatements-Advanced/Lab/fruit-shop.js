@@ -24,19 +24,16 @@ function fruitShop(input) {
 
     if (day == "Sunday" || day == "Saturday") {
         if (fruit in weekends) {
-            console.log((quantity * weekends[fruit]).toFixed(2));
-        } else {
-            console.log("error");
+            return (quantity * weekends[fruit]).toFixed(2);
         }
     } else if (week.includes(day)) {
         if (fruit in workingDays) {
-            console.log((quantity * workingDays[fruit]).toFixed(2));
-        } else {
-            console.log("error");
+            return (quantity * workingDays[fruit]).toFixed(2);
         }
-    } else {
-        console.log("error");
     }
+
+    return "error"
+
 }
 
 fruitShop(["apple", "Tuesday", "2"])
