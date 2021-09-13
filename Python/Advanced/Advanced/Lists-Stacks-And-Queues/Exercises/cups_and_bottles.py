@@ -16,7 +16,7 @@ while cups:
         wasted_water += bottle - cups[0]
         cups.popleft()
 else:
-    bottles = [bottles[i] for i in range(len(bottles) - 1, -1, -1)]
-    print(f"Bottles: {' '.join([str(n) for n in bottles])}")
+    bottles = [str(bottles[i]) for i in range(len(bottles) - 1, -1, -1)]
+    print(f"Bottles: {' '.join( bottles)}")
 
 print(f"Wasted litters of water: {wasted_water}")
