@@ -17,6 +17,6 @@ while cups:
         cups.popleft()
 else:
     bottles = [str(bottles[i]) for i in range(len(bottles) - 1, -1, -1)]
-    print(f"Bottles: {' '.join( bottles)}")
+    print(f"Bottles: {' '.join(bottles)}")
 
 print(f"Wasted litters of water: {wasted_water}")
