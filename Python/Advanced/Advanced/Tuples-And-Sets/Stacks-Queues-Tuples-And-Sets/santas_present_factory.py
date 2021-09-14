@@ -4,7 +4,6 @@ materials_boxes = deque([int(n) for n in input().split()])
 magic_values = deque([int(n) for n in input().split()])
 toys_values = {150: "Doll", 250: "Wooden train", 300: "Teddy bear", 400: "Bicycle"}
 toys = []
-is_no_christmas = False
 while materials_boxes and magic_values:
     if materials_boxes[-1] == 0 or magic_values[0] == 0:
         if materials_boxes[-1] == 0:
