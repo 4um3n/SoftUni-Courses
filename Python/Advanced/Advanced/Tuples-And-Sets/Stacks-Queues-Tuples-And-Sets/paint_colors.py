@@ -8,14 +8,12 @@ left_half = deque(substrings[:len(substrings) // 2])
 right_half = deque(substrings[len(substrings) // 2:])
 while left_half or right_half:
     try:
-        left = left_half[0]
-        left_half.popleft()
+        left = left_half.popleft()
     except IndexError:
         left = ""
 
     try:
-        right = right_half[-1]
-        right_half.pop()
+        right = right_half.pop()
     except IndexError:
         right = ""
 

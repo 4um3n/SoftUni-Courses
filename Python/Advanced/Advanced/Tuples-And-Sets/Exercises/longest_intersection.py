@@ -9,5 +9,5 @@ for _ in range(int(input())):
     if len(longest_intersection) < len(intersection):
         longest_intersection = intersection.copy()
 
-print(f"Longest intersection is [{', '.join(str(n) for n in longest_intersection)}]"
+print(f"Longest intersection is [{', '.join([str(n) for n in longest_intersection])}]"
       f" with length {len(longest_intersection)}")

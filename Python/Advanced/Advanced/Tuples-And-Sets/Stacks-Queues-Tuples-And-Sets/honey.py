@@ -21,7 +21,7 @@ while working_bees and nectar:
     elif symbol == "*":
         total_honey += abs(bee * current_load)
     elif symbol == "/":
-        if bee != 0 or current_load != 0:
+        if bee != 0 and current_load != 0:
             total_honey += abs(bee / current_load)
 
 print(f"Total honey made: {total_honey}")

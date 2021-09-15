@@ -3,9 +3,8 @@ for _ in range(int(input())):
     guest_code = input()
     if guest_code[0].isdigit():
         vip_guests.add(guest_code)
-        continue
-
-    regular_guests.add(guest_code)
+    else:
+        regular_guests.add(guest_code)
 
 guest = input()
 while guest != "END":

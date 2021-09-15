@@ -19,12 +19,11 @@ while chocolates and milks:
         chocolates.append(choco - 5)
 
     if milkshakes_count == 5:
+        print(f"Great! You made all the chocolate milkshakes needed!")
         break
-
-if milkshakes_count == 5:
-    print(f"Great! You made all the chocolate milkshakes needed!")
 else:
     print(f"Not enough milkshakes.")
+
 
 if chocolates:
     print(f"Chocolate: {', '.join([str(n) for n in chocolates])}")

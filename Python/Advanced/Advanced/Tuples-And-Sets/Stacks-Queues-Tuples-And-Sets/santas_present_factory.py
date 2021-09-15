@@ -38,6 +38,4 @@ if magic_values:
     magic_values = [str(n) for n in magic_values]
     print(f"Magic left: {', '.join(magic_values)}")
 
-unique_toys = set(toys)
-for toy in sorted(unique_toys):
-    print(f"{toy}: {toys.count(toy)}")
+[print(f"{toy}: {toys.count(toy)}") for toy in sorted(set(toys))]

@@ -1,7 +1,7 @@
 evens = set()
 odds = set()
 for i in range(1, int(input()) + 1):
-    value = sum(ord(char) for char in input()) // i
+    value = sum([ord(char) for char in input()]) // i
     if value % 2 == 0:
         evens.add(value)
     else:
