@@ -6,7 +6,7 @@ while expression:
     try:
         char = int(expression[0])
         expression.popleft()
-        control.append(int(char))
+        control.append(char)
         continue
     except ValueError:
         char = expression.popleft()
