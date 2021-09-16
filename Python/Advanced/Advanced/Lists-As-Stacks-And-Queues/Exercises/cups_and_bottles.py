@@ -11,7 +11,6 @@ while cups:
     bottle = bottles.pop()
     if bottle < cups[0]:
         cups[0] -= bottle
-        bottle = 0
     else:
         wasted_water += bottle - cups[0]
         cups.popleft()
