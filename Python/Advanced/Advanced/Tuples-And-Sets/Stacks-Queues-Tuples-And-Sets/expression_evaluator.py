@@ -6,26 +6,20 @@ while expression:
     try:
         char = int(expression[0])
         expression.popleft()
-        control.append(int(char))
+        control.append(char)
         continue
     except ValueError:
         char = expression.popleft()
 
     n = control.popleft()
-    if char == "*":
-        while control:
+    while control:
+        if char == "*":
             n *= control.popleft()
-
-    elif char == "-":
-        while control:
+        elif char == "-":
             n -= control.popleft()
-
-    elif char == "+":
-        while control:
+        elif char == "+":
             n += control.popleft()
-
-    elif char == "/":
-        while control:
+        elif char == "/":
             n = n // control.popleft()
 
     control.append(n)
