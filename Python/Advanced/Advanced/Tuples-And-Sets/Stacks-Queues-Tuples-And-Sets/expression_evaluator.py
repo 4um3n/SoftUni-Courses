@@ -12,20 +12,14 @@ while expression:
         char = expression.popleft()
 
     n = control.popleft()
-    if char == "*":
-        while control:
+    while control:
+        if char == "*":
             n *= control.popleft()
-
-    elif char == "-":
-        while control:
+        elif char == "-":
             n -= control.popleft()
-
-    elif char == "+":
-        while control:
+        elif char == "+":
             n += control.popleft()
-
-    elif char == "/":
-        while control:
+        elif char == "/":
             n = n // control.popleft()
 
     control.append(n)
