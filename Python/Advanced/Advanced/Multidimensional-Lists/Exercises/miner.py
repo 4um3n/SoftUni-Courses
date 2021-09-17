@@ -19,7 +19,7 @@ def left_coal(grid):
 
 field_size = int(input())
 commands = deque(input().split())
-field = [[char for char in input().split()] for _ in range(field_size)]
+field = [input().split() for _ in range(field_size)]
 while commands:
     direction = commands.popleft()
     row, col = find_miner(field)
