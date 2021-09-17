@@ -53,5 +53,5 @@ while commands:
         [print(''.join(field[r])) for r in range(len(field))]
         print(f"dead: {row} {col}")
         exit()
-    else:
-        field[row][col] = "P"
+    
+    field[row][col] = "P"
