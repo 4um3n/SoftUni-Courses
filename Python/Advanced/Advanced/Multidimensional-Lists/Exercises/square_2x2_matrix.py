@@ -1,5 +1,5 @@
 rows, cols = [int(n) for n in input().split()]
-matrix = [[char for char in input().split()] for _ in range(rows)]
+matrix = [input().split() for _ in range(rows)]
 identical_sub_squares_count = 0
 for r in range(rows - 1):
     for c in range(cols - 1):
