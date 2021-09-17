@@ -1,5 +1,5 @@
 rows, cols = [int(n) for n in input().split()]
-matrix = [[n for n in input().split()] for _ in range(rows)]
+matrix = [input().split() for _ in range(rows)]
 data = input()
 while data != "END":
     data = data.split()
