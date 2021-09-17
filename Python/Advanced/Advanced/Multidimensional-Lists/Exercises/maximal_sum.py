@@ -6,16 +6,12 @@ max_sum = -maxsize
 square_rows = []
 for r in range(rows - 2):
     for c in range(cols - 2):
-        result = matrix[r][c] + matrix[r][c+1] + matrix[r][c+2]
-        result += matrix[r+1][c] + matrix[r+1][c+1] + matrix[r+1][c+2]
-        result += matrix[r+2][c] + matrix[r+2][c+1] + matrix[r+2][c+2]
-
-        if result > max_sum:
-            max_sum = result
-            square_rows.clear()
-            square_rows.append([str(matrix[r][c]),  str(matrix[r][c+1]), str(matrix[r][c+2])])
-            square_rows.append([str(matrix[r+1][c]),  str(matrix[r+1][c+1]), str(matrix[r+1][c+2])])
-            square_rows.append([str(matrix[r+2][c]),  str(matrix[r+2][c+1]), str(matrix[r+2][c+2])])
+        current_square = [matrix[r+x][c+y] for x in range(3) for y in range(3)]
+        if sum(current_square) > max_sum:
+            max_sum = sum(current_square)
+            square_rows = current_square.copy()
 
 print(f"Sum = {max_sum}")
+square_rows = [[str(square_rows[i]), str(square_rows[i+1]), str(square_rows[i+2])] 
+               for i in range(0, len(square_rows), 3)]
 [print(' '.join(square_rows[i])) for i in range(3)]
