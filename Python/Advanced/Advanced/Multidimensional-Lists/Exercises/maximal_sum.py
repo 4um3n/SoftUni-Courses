@@ -18,5 +18,4 @@ for r in range(rows - 2):
             square_rows.append([str(matrix[r+2][c]),  str(matrix[r+2][c+1]), str(matrix[r+2][c+2])])
 
 print(f"Sum = {max_sum}")
-for i in range(3):
-    print(' '.join(square_rows[i]))
+[print(' '.join(square_rows[i])) for i in range(3)]
