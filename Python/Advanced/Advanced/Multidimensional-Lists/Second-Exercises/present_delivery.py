@@ -17,7 +17,7 @@ def move(field, direction):
     elif direction == "right":
         c1 += 1
 
-    if r1 in range(len(field)) and c1 in range(len(field[r])):
+    if r1 in range(len(field)) and c1 in range(len(field[r1])):
         field[r][c] = "-"
         return field, r1, c1
 
