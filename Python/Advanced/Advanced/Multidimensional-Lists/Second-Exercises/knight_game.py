@@ -33,7 +33,7 @@ def game(field):
     while r is not None and c is not None:
         field[r][c] = 0
         killed_knights += 1
-        r, c = max_knight_kills(matrix)
+        r, c = max_knight_kills(field)
 
     return killed_knights
 
