@@ -1,7 +1,6 @@
 matrix = [[int(n) for n in input().split()] for _ in range(int(input()))]
 bombs_coordinates = [[int(n) for n in c.split(",")] for c in input().split()]
-for bomb in bombs_coordinates:
-    row, col = bomb
+for row, col in bombs_coordinates:
     if matrix[row][col] <= 0:
         continue
 
