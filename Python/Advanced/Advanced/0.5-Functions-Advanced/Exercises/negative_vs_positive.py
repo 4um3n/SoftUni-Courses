@@ -1,19 +1,12 @@
-def negatives_vs_positives(nums, negative_r=0, positive_r=0):
+def negatives_vs_positives(nums, positives=0, negatives=0):
     if not nums:
-        return negative_r, positive_r
+        if abs(negatives) > positives:
+            return f"{negatives}", f"{positives}", f"The negatives are stronger than the positives"
+        return f"{negatives}", f"{positives}", f"The positives are stronger than the negatives"
 
     if nums[0] < 0:
-        res = negatives_vs_positives(nums[1:], negative_r+nums[0], positive_r)
-    else:
-        res = negatives_vs_positives(nums[1:], negative_r, positive_r+nums[0])
-
-    return res
+        return negatives_vs_positives(nums[1:], positives, negatives+nums[0])
+    return negatives_vs_positives(nums[1:], positives+nums[0], negatives)
 
 
-data = list(map(int, input().split()))
-negative, positive = negatives_vs_positives(data, negative_r=0, positive_r=0)
-print(f"{negative}\n{positive}")
-if abs(negative) > positive:
-    print(f"The negatives are stronger than the positives")
-else:
-    print(f"The positives are stronger than the negatives")
+print('\n'.join(negatives_vs_positives(list(map(int, input().split())))))

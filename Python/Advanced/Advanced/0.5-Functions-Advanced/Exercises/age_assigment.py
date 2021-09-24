@@ -1,7 +1,4 @@
-def age_assignment(*args, result=None, **kwargs):
-    if result is None:
-        result = dict()
-
+def age_assignment(*args, result=dict(), **kwargs):
     if not args:
         return result
 
