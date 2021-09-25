@@ -17,7 +17,7 @@ def move(field, direction, steps):
     elif direction == "down":
         r1 += steps
 
-    if r1 in range(len(field)) and c1 in range(len(field[r])) and field[r1][c1] == ".":
+    if r1 in range(len(field)) and c1 in range(len(field[r1])) and field[r1][c1] == ".":
         field[r][c] = "."
         field[r1][c1] = "A"
         return field
