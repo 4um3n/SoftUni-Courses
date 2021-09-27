@@ -22,20 +22,20 @@ def play(field, moves, eaten_food=0):
     direction = input()
     r, c = find_snake(field)
     field[r][c] = "."
-    next_r, next_c = moves[direction](r, c)
-    if next_r not in range(len(field)) or next_c not in range(len(field[next_r])):
+    r, c = moves[direction](r, c)
+    if r not in range(len(field)) or c not in range(len(field[r])):
         res = f"Game over!\n" \
               f"Food eaten: {eaten_food}\n"
         res += '\n'.join([''.join(field[r]) for r in range(len(field))])
         return res
 
-    if field[next_r][next_c] == "*":
+    if field[r][c] == "*":
         eaten_food += 1
-    elif field[next_r][next_c] == "B":
-        field[next_r][next_c] = "."
-        next_r, next_c = find_burrow(field)
+    elif field[r][c] == "B":
+        field[r][c] = "."
+        r, c = find_burrow(field)
 
-    field[next_r][next_c] = "S"
+    field[r][c] = "S"
     return play(field, moves, eaten_food)
 
 
