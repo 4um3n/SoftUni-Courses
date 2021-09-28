@@ -5,11 +5,12 @@ nectar = deque([int(n) for n in input().split()])
 process_symbols = deque(input().split())
 total_honey = 0
 while working_bees and nectar:
-    bee, current_load = working_bees.popleft(), nectar.pop()
-    while current_load < bee and nectar:
+    bee = working_bees.popleft()
+    while nectar:
         current_load = nectar.pop()
-
-    if current_load < bee:
+        if current_load >= bee:
+            break
+    else:
         working_bees.appendleft(bee)
         break
 

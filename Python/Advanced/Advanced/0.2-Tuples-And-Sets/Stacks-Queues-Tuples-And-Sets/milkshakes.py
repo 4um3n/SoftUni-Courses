@@ -24,13 +24,5 @@ while chocolates and milks:
 else:
     print(f"Not enough milkshakes.")
 
-
-if chocolates:
-    print(f"Chocolate: {', '.join([str(n) for n in chocolates])}")
-else:
-    print(f"Chocolate: empty")
-
-if milks:
-    print(f"Milk: {', '.join([str(n) for n in milks])}")
-else:
-    print(f"Milk: empty")
+print(f"Chocolate: {', '.join([str(n) for n in chocolates]) if chocolates else 'empty'}")
+print(f"Milk: {', '.join([str(n) for n in milks]) if milks else 'empty'}")
