@@ -1,25 +1,21 @@
 from collections import deque
 
-pumps = [input().split() for _ in range(int(input()))]
-pumps = deque([int(data[0]), int(data[1])] for data in pumps)
-counter, tank, i, is_found, min_i  = 0, 0, 0, 0, 0
+pumps = deque([[int(n) for n in input().split()] for _ in range(int(input()))])
+counter, tank, i, min_i = 0, 0, 0, None
 while counter < len(pumps):
     petrol, distance = pumps[0]
     pumps.append(pumps.popleft())
     tank += petrol
     if tank >= distance:
-        if not is_found:
+        if min_i is None:
             min_i = i
-            is_found = 1
 
         tank -= distance
-        counter += 1 
+        counter += 1
 
     else:
-        min_i, is_found, tank, counter  = 0, 0, 0, 0
+        min_i, tank, counter = None, 0, 0
 
-    i += 1
-    if i == len(pumps):
-        i = 0
+    i = 0 if i+1 == len(pumps) else i+1
 
 print(min_i)

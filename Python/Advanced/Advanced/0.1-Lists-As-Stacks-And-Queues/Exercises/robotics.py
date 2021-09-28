@@ -7,9 +7,9 @@ def change_overall_time(time):
     return time
 
 
-def next_available_time(time, rob):
+def next_available_time(time, rob, times):
     global initial_times
-    time += timedelta(seconds=initial_times[rob])
+    time += timedelta(seconds=times[rob])
     return time
 
 
@@ -34,7 +34,7 @@ while products:
 
     if available_robots:
         robot = available_robots.popleft()
-        robots[robot] = next_available_time(current_time, robot)
+        robots[robot] = next_available_time(current_time, robot, initial_times)
         print(f"{robot} - {product} [{current_time.strftime('%H:%M:%S')}]")
     else:
         products.append(product)

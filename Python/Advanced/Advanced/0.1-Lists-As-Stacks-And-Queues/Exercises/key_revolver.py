@@ -19,7 +19,7 @@ while locks:
     else:
         print(f"Ping!")
 
-    if current_barrel == 0 and bullets:
+    if not current_barrel and bullets:
         print(f"Reloading!")
         current_barrel = barrel_size
 
