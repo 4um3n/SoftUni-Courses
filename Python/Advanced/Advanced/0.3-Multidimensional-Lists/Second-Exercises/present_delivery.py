@@ -54,16 +54,16 @@ def cookie_rush(field, r, c, nice_kids, presents):
 
 
 def play(field, nice_kids, presents):
-    direct = input()
-    while direct != "Christmas morning":
-        field, r, c = move(field, direct)
+    direction = input()
+    while direction != "Christmas morning":
+        field, r, c = move(field, direction)
         field, nice_kids, presents = check_house(field, r, c, nice_kids, presents)
         if not presents:
             if nice_kids:
                 print(f"Santa ran out of presents!")
             break
 
-        direct = input()
+        direction = input()
 
     return field, nice_kids
 

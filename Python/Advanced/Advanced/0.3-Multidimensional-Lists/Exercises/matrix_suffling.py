@@ -9,11 +9,13 @@ while data != "END":
         data = input()
         continue
 
-    r1, c1, r2, c2 = [int(n) for n in data]
-    if r1 not in range(len(matrix)) or r2 not in range(len(matrix)) \
-             or c1 not in range(len(matrix[r1])) or c2 not in range(len(matrix[r2])):
-        print(f"Invalid input!")
+    values = [(int(data[i]), int(data[i+1])) for i in range(0, len(data), 2)]
+    for r, c in values:
+        if r not in range(len(matrix)) or c not in range(len(matrix[r])):
+            print(f"Invalid input!")
+            break
     else:
+        r1, c1, r2, c2 = [v for t in values for v in t]
         matrix[r1][c1], matrix[r2][c2] = matrix[r2][c2], matrix[r1][c1]
         [print(' '.join(matrix[r])) for r in range(len(matrix))]
 

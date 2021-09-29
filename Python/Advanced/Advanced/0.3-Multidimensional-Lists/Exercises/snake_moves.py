@@ -6,7 +6,7 @@ for r in range(rows):
     current_row = []
     for c in range(cols):
         current_row.append(snake[i])
-        i = 0 if i == len(snake) - 1 else i + 1
+        i = 0 if i == len(snake) - 1 else i+1
 
     if r % 2 == 1:
         current_row = current_row[::-1]

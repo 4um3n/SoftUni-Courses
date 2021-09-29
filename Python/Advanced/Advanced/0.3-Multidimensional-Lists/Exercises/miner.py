@@ -1,50 +1,52 @@
 from collections import deque
 
 
-def find_miner(grid):
-    for r in range(len(grid)):
-        for c in range(len(grid[r])):
-            if grid[r][c] == "s":
+def find_miner(field):
+    for r in range(len(field)):
+        for c in range(len(field[r])):
+            if field[r][c] == "s":
                 return r, c
 
 
-def left_coal(grid):
+def left_coal(field):
     x = 0
-    for r in range(len(grid)):
-        for c in range(len(grid[r])):
-            if grid[r][c] == "c":
+    for r in range(len(field)):
+        for c in range(len(field[r])):
+            if field[r][c] == "c":
                 x += 1
     return x
 
 
-field_size = int(input())
-commands = deque(input().split())
-field = [input().split() for _ in range(field_size)]
-while commands:
-    direction = commands.popleft()
-    row, col = find_miner(field)
-    field[row][col] = "*"
-    if direction == "up" and row-1 in range(len(field)):
-        row -= 1
-    elif direction == "down" and row+1 in range(len(field)):
-        row += 1
-    elif direction == "left" and col-1 in range(len(field[0])):
-        col -= 1
-    elif direction == "right" and col+1 in range(len(field[0])):
-        col += 1
-    else:
-        field[row][col] = "s"
-        continue
+def move(field, directions):
+    possible_moves = {
+        "up": lambda row, col: (row-1, col),
+        "down": lambda row, col: (row+1, col),
+        "left": lambda row, col: (row, col-1),
+        "right": lambda row, col: (row, col+1),
+    }
 
-    if field[row][col] == "e":
-        print(f"Game over! ({row}, {col})")
-        exit()
+    while directions:
+        direction = directions.popleft()
+        r, c = find_miner(field)
+        field[r][c] = "*"
+        next_r, next_c = possible_moves[direction](r, c)
+        if next_r not in range(len(field)) or next_c not in range(len(field[r])):
+            field[r][c] = "s"
+            continue
 
-    field[row][col] = "s"
-    if not left_coal(field):
-        print(f"You collected all coal! ({row}, {col})")
-        exit()
+        if field[next_r][next_c] == "e":
+            return f"Game over! ({next_r}, {next_c})"
 
-row, col = find_miner(field)
-remaining_coal = left_coal(field)
-print(f"{remaining_coal} pieces of coal left. ({row}, {col})")
+        field[next_r][next_c] = "s"
+        if not left_coal(field):
+            return f"You collected all coal! ({next_r}, {next_c})"
+
+    r, c = find_miner(field)
+    remaining_coal = left_coal(field)
+    return f"{remaining_coal} pieces of coal left. ({r}, {c})"
+
+
+rows = int(input())
+directions_data = deque(input().split())
+matrix = [input().split() for _ in range(rows)]
+print(move(matrix, directions_data))

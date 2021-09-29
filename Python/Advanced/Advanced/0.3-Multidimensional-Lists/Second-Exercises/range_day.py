@@ -25,8 +25,7 @@ def move(field, direction, steps):
     return field
 
 
-def shoot(field, direction):
-    global shoot_targets
+def shoot(field, direction, targets):
     r, c = find_shooter(field)
     while field[r][c] != "x":
         if direction == "right":
@@ -39,11 +38,11 @@ def shoot(field, direction):
             r += 1
 
         if r not in range(len(field)) or c not in range(len(field[r])):
-            return field
+            return field, targets
 
-    shoot_targets.append([r, c])
+    targets.append([r, c])
     field[r][c] = "."
-    return field
+    return field, targets
 
 
 matrix = [input().split() for _ in range(5)]
@@ -56,7 +55,7 @@ for _ in range(int(input())):
         matrix = move(matrix, direct, steps_count)
     elif "shoot" in command:
         direct = command[1]
-        matrix = shoot(matrix, direct)
+        matrix, shoot_targets = shoot(matrix, direct, shoot_targets)
 
     if len(shoot_targets) == targets_count:
         print(f"Training completed! All {targets_count} targets hit.")

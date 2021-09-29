@@ -27,30 +27,32 @@ def spread_bunnies(bunnies, field):
     return field
 
 
-def play(field, commands):
-    while commands:
-        direction = commands.popleft()
+def play(field, directions):
+    possible_moves = {
+        "U": lambda row, col: (row - 1, col),
+        "D": lambda row, col: (row + 1, col),
+        "L": lambda row, col: (row, col - 1),
+        "R": lambda row, col: (row, col + 1),
+    }
+
+    while directions:
+        direction = directions.popleft()
         r, c = find_player(field)
         field[r][c] = "."
-        if direction == "U" and r - 1 in range(len(field)):
-            r -= 1
-        elif direction == "D" and r + 1 in range(len(field)):
-            r += 1
-        elif direction == "L" and c - 1 in range(len(field[0])):
-            c -= 1
-        elif direction == "R" and c + 1 in range(len(field[0])):
-            c += 1
-        else:
+        next_r, next_c = possible_moves[direction](r, c)
+        if next_r not in range(len(field)) or next_c not in range(len(field[r])):
             field = spread_bunnies(find_bunnies(field), field)
-            [print(''.join(field[r])) for r in range(len(field))]
-            return f"won: {r} {c}"
+            res = '\n'.join([''.join(field[r]) for r in range(len(field))])
+            res += f"\nwon: {r} {c}"
+            return res
 
         field = spread_bunnies(find_bunnies(field), field)
-        if field[r][c] == "B":
-            [print(''.join(field[r])) for r in range(len(field))]
-            return f"dead: {r} {c}"
-        else:
-            field[r][c] = "P"
+        if field[next_r][next_c] == "B":
+            res = '\n'.join([''.join(field[r]) for r in range(len(field))])
+            res += f"\ndead: {next_r} {next_c}"
+            return res
+
+        field[next_r][next_c] = "P"
 
 
 rows, cols = [int(n) for n in input().split()]
