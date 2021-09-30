@@ -28,7 +28,7 @@ def create_output_file(output_file, words):
 
 def read_output_file(output_file):
     with open(output_file, 'r') as file:
-        return '\n'.join([f"{line[:-1]}" for line in file if line])
+        return '\n'.join([line[:-1] for line in file if line])
 
 
 current_dir_path = path.dirname(path.abspath(__file__))
