@@ -8,10 +8,9 @@ def create_reset_field(rows, columns):
 
 
 def print_field(field):
-    print(f"{'  '.join([str(i) for i in range(len(field[0]))])}")
-    print(f"{'  '.join(['|' for _ in range(len(field[0]))])}")
-    print()
     [print(f"{'  '.join([str(n) for n in field[r]])}") for r in range(len(field))]
+    print(f"\n{'  '.join(['|' for _ in range(len(field[0]))])}")
+    print(f"{'  '.join([str(i) for i in range(len(field[0]))])}")
 
 
 def clear_console():
@@ -73,7 +72,7 @@ def check_for_winner(field, player, row, column):
 def play(players):
     winner = None
 
-    # Get field dimensions and check if they are valid
+    # Get field dimensions, check if they are valid and if so, then create the field
     field_dimensions = []
     while not field_dimensions:
         text = "Please enter how many rows (minimum 4) and columns (minimum 4) field must have (Example: 5, 4): "
@@ -83,7 +82,7 @@ def play(players):
                 raise ValueError
         except ValueError:
             field_dimensions.clear()
-            print(f"Field's rows and columns must be just like in the example: (5, 4)")
+            print(f"Field's rows and columns must be just like in the example: 5, 4")
             continue
 
     field = create_reset_field(*field_dimensions)
@@ -94,10 +93,10 @@ def play(players):
         print_field(field)
         player = players[0]
 
-        # Check for free spots on the field and if not free spots then reset the field
+        # Check for free spots on the field and if there are no free spots, then reset the field
         field = check_free_spots_on_field(field)
 
-        # Get input for the column
+        # Get input for the column and check if it is integer bigger than -1
         try:
             column = int(input(f"\nPlayer {player}, please choose a column: "))
             if column < 0:
@@ -106,7 +105,7 @@ def play(players):
             print(f"You have entered an invalid column!")
             sleep(2)
             continue
-        
+
         # Check for free spots and wrong column
         try:
             row, column = check_free_spots_on_column(field, column)
@@ -115,7 +114,7 @@ def play(players):
             sleep(2)
             continue
 
-        # Assign current player value to the field spot and check if the player is winner
+        # Assign current player value to the correct spot on the field and check if the player is a winner
         field[row][column] = player
         winner = check_for_winner(field, player, row, column)
         players.append(players.pop(0))
@@ -127,5 +126,5 @@ def play(players):
 
 answer = input(f"Do you want to play? (Y/y for yes): ").lower()
 while answer == 'y':
-    play([1, 2])
+    play([1, 2, 3])
     answer = input(f"Do you want to play again? (Y/y for yes): ").lower()
