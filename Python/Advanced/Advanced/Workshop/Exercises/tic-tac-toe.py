@@ -114,14 +114,15 @@ while answer == 'y':
     board = [[" " for _ in range(3)] for _ in range(3)]
     setup()
     while winner is None:
-        print_numerated_free_positions()
-        winner = play(player_one)
-        player_one, player_two = player_two, player_one
-        clear_console()
         if not check_for_free_positions():
             print_board()
             print(f"It's a tie!")
             break
+            
+        print_numerated_free_positions()
+        winner = play(player_one)
+        player_one, player_two = player_two, player_one
+        clear_console()
     else:
         print_board()
         print(f"{winner} won!")
