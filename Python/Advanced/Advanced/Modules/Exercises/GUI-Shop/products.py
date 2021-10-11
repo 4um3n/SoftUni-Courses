@@ -121,6 +121,13 @@ def increase_product_quantity(product, quantity):
     products = []
     is_found = False
     error = []
+    if not product:
+        error.append(f"Enter product name!")
+    if not quantity:
+        error.append(f"Enter quantity!")
+
+    if error:
+        return '\n'.join(error)
 
     with open(products_file_path, 'r+') as file:
         for line in file.read().split('\n'):
@@ -143,7 +150,7 @@ def increase_product_quantity(product, quantity):
             error.append(f"Product not found in the inventory!")
 
         if error:
-            return error
+            return '\n'.join(error)
 
         file.truncate(0)
         file.seek(0)

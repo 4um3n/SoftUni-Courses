@@ -264,3 +264,6 @@ def render_increase_product_quantity_screen(root, current_user, error=None):
 
     Button(root, text=f"Back", bg='red', fg='yellow', command=lambda: render_products_screen(root, current_user)).\
         grid(column=0, row=2, pady=25, padx=25)
+
+    if error is not None:
+        Label(root, text=error, fg='red').grid(column=2, row=2, pady=25, padx=25)
