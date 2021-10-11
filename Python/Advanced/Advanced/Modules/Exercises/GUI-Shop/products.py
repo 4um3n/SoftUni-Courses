@@ -13,7 +13,7 @@ def get_products_content():
         for line in file.read().split('\n'):
             if line:
                 product = json.loads(line)
-                product = {k: os.path.join(current_path, v) if k == "img_path" else v for k, v in product.items()}
+                product = {k: os.path.join(image_files_dir_path, v) if k == "img_path" else v for k, v in product.items()}
                 products.append(product)
 
     return products
