@@ -1,9 +1,9 @@
-{"id": 1, "name": "Bananas", "img_path": "/home/spica/PycharmProjects/Python-Advanced/Modules/Exercises/DB/Images/bananas.jpeg", "quantity": 0}
-{"id": 2, "name": "Pancakes", "img_path": "/home/spica/PycharmProjects/Python-Advanced/Modules/Exercises/DB/Images/pancakes.jpeg", "quantity": 0}
-{"id": 3, "name": "Pizza", "img_path": "/home/spica/PycharmProjects/Python-Advanced/Modules/Exercises/DB/Images/pizza.jpeg", "quantity": 0}
-{"name": "Coffee", "quantity": 0, "img_path": "/home/spica/PycharmProjects/Python-Advanced/Modules/Exercises/DB/Images/coffee.png", "id": 4}
-{"name": "Orange juice", "quantity": 0, "img_path": "/home/spica/PycharmProjects/Python-Advanced/Modules/Exercises/DB/Images/orange-juice.jpeg", "id": 5}
-{"name": "Vanila Ice Cream", "quantity": 9, "img_path": "/home/spica/PycharmProjects/Python-Advanced/Modules/Exercises/DB/Images/vanila-ice-cream.jpeg", "id": 6}
-{"name": "Chocolate Ice Cream", "quantity": 9, "img_path": "/home/spica/PycharmProjects/Python-Advanced/Modules/Exercises/DB/Images/chocolate-ice-cream.jpeg", "id": 7}
-{"name": "Fried Potatoes", "quantity": 25, "img_path": "/home/spica/PycharmProjects/Python-Advanced/Modules/Exercises/DB/Images/fried-potatoes.jpeg", "id": 8}
-{"name": "Kebap", "quantity": 4, "img_path": "/home/spica/PycharmProjects/Python-Advanced/Modules/Exercises/DB/Images/kebap.jpeg", "id": 9}
+{"id": 1, "name": "Bananas", "img_path": "/DB/Images/bananas.jpeg", "quantity": 0}
+{"id": 2, "name": "Pancakes", "img_path": "/DB/Images/pancakes.jpeg", "quantity": 0}
+{"id": 3, "name": "Pizza", "img_path": "/DB/Images/pizza.jpeg", "quantity": 0}
+{"name": "Coffee", "quantity": 0, "img_path": "/DB/Images/coffee.png", "id": 4}
+{"name": "Orange juice", "quantity": 0, "img_path": "/DB/Images/orange-juice.jpeg", "id": 5}
+{"name": "Vanila Ice Cream", "quantity": 9, "img_path": "/DB/Images/vanila-ice-cream.jpeg", "id": 6}
+{"name": "Chocolate Ice Cream", "quantity": 9, "img_path": "/DB/Images/chocolate-ice-cream.jpeg", "id": 7}
+{"name": "Fried Potatoes", "quantity": 25, "img_path": "/DB/Images/fried-potatoes.jpeg", "id": 8}
+{"name": "Kebap", "quantity": 4, "img_path": "/DB/Images/kebap.jpeg", "id": 9}
