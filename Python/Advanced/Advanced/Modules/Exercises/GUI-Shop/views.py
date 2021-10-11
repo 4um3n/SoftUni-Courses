@@ -18,6 +18,8 @@ def render_main_screen(root):
     Button(root, text=f"Register", bg='yellow', fg='black', command=lambda: render_register_screen(root)).\
         grid(column=1, row=0, padx=25, pady=25)
 
+    Button(root, text=f"Exit", bg='red', fg='yellow', command=lambda: exit()).grid(column=2, row=0, pady=25, padx=25)
+
 
 def login(root, username, password):
     if login_validator(username, password):
@@ -98,8 +100,8 @@ def render_register_screen(root, error=None):
         Label(root, text=f"{error}").grid(column=2, row=5)
 
 
-def reduce_product(root, current_user, products, product_id):
-    error_id = reduce_product_quantity(products, product_id)
+def reduce_product(root, current_user, product_id):
+    error_id = reduce_product_quantity(product_id)
     if error_id:
         render_products_screen(root, current_user, error_id)
         return
@@ -110,9 +112,9 @@ def reduce_product(root, current_user, products, product_id):
 
 def render_products_screen(root, current_user, error_id=None):
     clear_screen(root)
+
+    r, c = 2, 0
     products = get_products_content()
-    r = 2
-    c = 0
     for i in range(len(products)):
         product_id = products[i].get('id')
         product_name = products[i].get('name')
@@ -129,23 +131,30 @@ def render_products_screen(root, current_user, error_id=None):
         Label(root, text=f"Quantity: {product_count}").grid(column=c, row=r-1, pady=5)
         img.grid(column=c, row=r)
         Button(root, text=f"Buy {product_name}", bg='yellow',
-               command=lambda pd_id=product_id: reduce_product(root, current_user, products, pd_id)).\
+               command=lambda pd_id=product_id: reduce_product(root, current_user, pd_id)).\
             grid(column=c, row=r+1, pady=20)
 
         if product_id == error_id:
             Label(root, text=f"Product out of stock", fg='red').grid(column=c, row=r+2, pady=20)
 
         c += 1
-        if (i+1) % 8 == 0:
+        if c % 8 == 0:
             r += 5
             c = 0
 
     Button(root, text=f"Back", bg='red', fg='yellow', command=lambda: render_main_screen(root)).\
         grid(column=0, row=r+3, pady=25)
 
+    Button(root, text=f"List bought products", bg='green', fg='white',
+           command=lambda: list_bought_products(root, current_user)).grid(column=1, row=r+3, pady=25)
+
     if is_user_admin(current_user):
         Button(root, text="Add product", bg='green', fg='white',
-               command=lambda: render_add_product_screen(root, current_user)).grid(column=0, row=r + 4, pady=25)
+               command=lambda: render_add_product_screen(root, current_user)).grid(column=2, row=r+3, pady=25)
+
+        Button(root, text=f"Increase product quantity", bg='green', fg='white',
+               command=lambda: render_increase_product_quantity_screen(root, current_user)).\
+            grid(column=3, row=r+3, pady=25)
 
 
 def add_product(root, product, current_user):
@@ -190,3 +199,68 @@ def render_add_product_screen(root, current_user, error=None):
 
     if error is not None:
         Label(root, text=error, fg='red').grid(column=2, row=4, pady=25)
+
+
+def list_bought_products(root, current_user):
+    current_user_products = get_current_user_products(current_user)
+    if current_user_products:
+        render_list_user_products_screen(root, current_user_products, current_user)
+        return
+
+    render_products_screen(root, current_user)
+
+
+def render_list_user_products_screen(root, products, current_user):
+    clear_screen(root)
+
+    r, c = 2, 0
+    for product_id, items in products.items():
+        product_name = items['name']
+        product_img_path = items['img_path']
+        product_count = items['quantity']
+
+        load = Image.open(product_img_path)
+        crop = load.crop((0, 0, 200, 200))
+        render = ImageTk.PhotoImage(crop)
+        img = Label(root, image=render)
+        img.image = render
+
+        Label(root, text=f"{product_name}").grid(column=c, row=r - 2, pady=5)
+        Label(root, text=f"Quantity: {product_count}").grid(column=c, row=r - 1, pady=5)
+        img.grid(column=c, row=r)
+
+        c += 1
+        if c % 8 == 0:
+            r += 5
+            c = 0
+
+    Button(root, text=f"Back", bg='red', fg='yellow',
+           command=lambda: render_products_screen(root, current_user)).grid(column=0, row=r+2, pady=25)
+
+
+def increase_quantity(root, current_user, product, quantity):
+    error = increase_product_quantity(product, quantity)
+    if error is not None:
+        render_increase_product_quantity_screen(root, current_user, error)
+        return
+
+    render_products_screen(root, current_user)
+
+
+def render_increase_product_quantity_screen(root, current_user, error=None):
+    clear_screen(root)
+
+    Label(root, text=f"Enter product name: ").grid(column=0, row=0, pady=25, padx=25)
+    product_name = StringVar()
+    Entry(root, textvariable=product_name).grid(column=1, row=0, pady=25, padx=25)
+
+    Label(root, text=f"Enter quantity: ").grid(column=0, row=1, pady=25, padx=25)
+    product_quantity = StringVar()
+    Entry(root, textvariable=product_quantity).grid(column=1, row=1, pady=25, padx=25)
+
+    Button(root, text=f"Increase product quantity", bg='green', fg='white',
+           command=lambda: increase_quantity(root, current_user, product_name.get(), product_quantity.get())).\
+        grid(column=1, row=2, pady=25, padx=25)
+
+    Button(root, text=f"Back", bg='red', fg='yellow', command=lambda: render_products_screen(root, current_user)).\
+        grid(column=0, row=2, pady=25, padx=25)

@@ -13,25 +13,32 @@ def get_products_content():
         for line in file.read().split('\n'):
             if line:
                 product = json.loads(line)
-                product = {k: os.path.join(image_files_dir_path, v) if k == "img_path" else v for k, v in product.items()}
+                product = {k: os.path.join(image_files_dir_path, v) if k == "img_path" else v
+                           for k, v in product.items()}
                 products.append(product)
 
     return products
 
 
-def reduce_product_quantity(products, product_id):
-    for i in range(len(products)):
-        if products[i]['id'] == product_id:
-            if products[i]['quantity'] <= 0:
-                return products[i]['id']
+def reduce_product_quantity(product_id):
+    products = []
+    with open(products_file_path, 'r+') as file:
+        for line in file.read().split('\n'):
+            if line:
+                line = json.loads(line)
+                if line['id'] == product_id:
+                    if line['quantity'] <= 0:
+                        return line['id']
 
-            products[i]['quantity'] -= 1
-            with open(products_file_path, 'r+') as file:
-                file.truncate(0)
-                file.seek(0)
-                for line in products:
-                    file.write(json.dumps(line))
-                    file.write(f"\n")
+                    line['quantity'] -= 1
+
+                products.append(line)
+
+        file.truncate(0)
+        file.seek(0)
+        for line in products:
+            file.write(json.dumps(line))
+            file.write(f"\n")
 
 
 def add_product_to_user_products(current_user, product_id):
@@ -84,5 +91,62 @@ def add_product_to_inventory(product):
     return '\n'.join(error)
 
 
-def increase_product_quantity():
-    pass
+def get_current_user_products(current_user):
+    products = get_products_content()
+    current_user_products_ids = []
+    current_user_products = {}
+    with open(users_file_path, 'r') as file:
+        for line in file.read().split('\n'):
+            if line:
+                line = json.loads(line)
+                if line['username'] == current_user:
+                    current_user_products_ids = line['products'].copy()
+
+    for product_id in current_user_products_ids:
+        if product_id not in current_user_products:
+            current_user_products[product_id] = {"quantity": 0, "name": "", "img_path": ""}
+
+        current_user_products[product_id]['quantity'] += 1
+
+    for product_id in current_user_products_ids:
+        for product in products:
+            if product_id == product['id']:
+                current_user_products[product_id]['name'] = product['name']
+                current_user_products[product_id]['img_path'] = product['img_path']
+
+    return current_user_products
+
+
+def increase_product_quantity(product, quantity):
+    products = []
+    is_found = False
+    error = []
+
+    with open(products_file_path, 'r+') as file:
+        for line in file.read().split('\n'):
+            if line:
+                line = json.loads(line)
+                if product == line['name']:
+                    is_found = True
+                    try:
+                        quantity = int(quantity)
+                        if quantity < 0:
+                            raise ValueError
+                        line['quantity'] += int(quantity)
+                    except ValueError:
+                        error.append(f"Quantity must be a positive integer!")
+                        break
+
+                products.append(line)
+
+        if not is_found:
+            error.append(f"Product not found in the inventory!")
+
+        if error:
+            return error
+
+        file.truncate(0)
+        file.seek(0)
+        for line in products:
+            file.write(json.dumps(line))
+            file.write('\n')
