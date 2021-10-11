@@ -63,7 +63,6 @@ def add_product_to_inventory(product):
             continue
 
         if k == "img_path":
-            product[k] = os.path.join(image_files_dir_path, v)
             if v not in os.listdir(image_files_dir_path):
                 error.append(f'File "{product[k]}" does not exist!')
 
