@@ -1,9 +1,9 @@
-{"id": 1, "name": "Bananas", "img_path": "bananas.jpeg", "quantity": 10}
-{"id": 2, "name": "Pancakes", "img_path": "pancakes.jpeg", "quantity": 10}
-{"id": 3, "name": "Pizza", "img_path": "pizza.jpeg", "quantity": 14}
-{"name": "Coffee", "quantity": 8, "img_path": "coffee.png", "id": 4}
-{"name": "Orange juice", "quantity": 9, "img_path": "orange-juice.jpeg", "id": 5}
-{"name": "Vanila Ice Cream", "quantity": 6, "img_path": "vanila-ice-cream.jpeg", "id": 6}
-{"name": "Chocolate Ice Cream", "quantity": 8, "img_path": "chocolate-ice-cream.jpeg", "id": 7}
-{"name": "Fried Potatoes", "quantity": 25, "img_path": "fried-potatoes.jpeg", "id": 8}
-{"name": "Kebap", "quantity": 3, "img_path": "kebap.jpeg", "id": 9}
+{"id": 1, "name": "Bananas", "img_path": "bananas.jpeg", "quantity": 9}
+{"id": 2, "name": "Pancakes", "img_path": "pancakes.jpeg", "quantity": 8}
+{"id": 3, "name": "Pizza", "img_path": "pizza.jpeg", "quantity": 4}
+{"name": "Coffee", "quantity": 0, "img_path": "coffee.png", "id": 4}
+{"name": "Orange juice", "quantity": 5, "img_path": "orange-juice.jpeg", "id": 5}
+{"name": "Vanila Ice Cream", "quantity": 2, "img_path": "vanila-ice-cream.jpeg", "id": 6}
+{"name": "Chocolate Ice Cream", "quantity": 7, "img_path": "chocolate-ice-cream.jpeg", "id": 7}
+{"name": "Fried Potatoes", "quantity": 21, "img_path": "fried-potatoes.jpeg", "id": 8}
+{"name": "Kebap", "quantity": 0, "img_path": "kebap.jpeg", "id": 9}

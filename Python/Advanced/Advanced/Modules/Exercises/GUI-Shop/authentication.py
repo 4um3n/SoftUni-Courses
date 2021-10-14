@@ -12,7 +12,7 @@ def register_validator(**user):
     error = []
     for k, v in user.items():
         if not v and k != 'is_admin':
-            error.append(f"Enter {k}")
+            error.append(f"Enter {' '.join(k.split('_'))}!")
 
     if error:
         return '\n'.join(error)
