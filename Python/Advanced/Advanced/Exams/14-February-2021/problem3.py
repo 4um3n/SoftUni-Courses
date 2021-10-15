@@ -1,20 +1,17 @@
-def stock_availability(flavours: list, order_type: str, *args):
-    if order_type == "delivery":
+def stock_availability(flavours: list, command: str, *args):
+    if command == "delivery":
+        flavours.extend(args)
+
+    elif command == "sell":
         if not args:
-            return flavours
+            flavours.pop(0)
 
-        flavours.append(args[0])
-        return stock_availability(flavours, order_type, *args[1:])
+        elif len(args) == 1 and isinstance(args[0], int):
+            flavours = flavours[int(args[0]):]
 
-    elif order_type == "sell":
-        if not args:
-            return flavours[1:]
+        else:
+            for order in args:
+                while order in flavours:
+                    flavours.remove(order)
 
-        elif isinstance(args[0], int):
-            return flavours[args[0]:]
-
-        for order in args:
-            while order in flavours:
-                flavours.remove(order)
-
-        return flavours
+    return flavours

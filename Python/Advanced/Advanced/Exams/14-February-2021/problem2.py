@@ -1,37 +1,39 @@
-def find_player(maze):
-    for r in range(len(maze)):
-        for c in range(len(maze[r])):
-            if maze[r][c] == "P":
+def find_player(field):
+    for r in range(len(field)):
+        for c in range(len(field)):
+            if field[r][c] == "P":
                 return r, c
 
 
-def play(maze, r, c, path=[], coins=0):
-    if coins >= 100:
-        return f"You won! You've collected {coins} coins.", path
+matrix_size = int(input())
+matrix = [input().split() for _ in range(matrix_size)]
+possible_moves = {
+    "up": lambda r, c: (r-1, c),
+    "down": lambda r, c: (r+1, c),
+    "left": lambda r, c: (r, c-1),
+    "right": lambda r, c: (r, c+1)
+}
 
+coins = 0
+path = []
+row, col = find_player(matrix)
+
+while coins < 100:
     direction = input()
-    if direction == "up":
-        r -= 1
-    elif direction == "down":
-        r += 1
-    elif direction == "left":
-        c -= 1
-    elif direction == "right":
-        c += 1
-    else:
-        return play(maze, r, c, path, coins)
+    if direction not in possible_moves:
+        continue
 
-    if r not in range(len(maze)) or c not in range(len(maze[r])) or maze[r][c] == "X":
+    row, col = possible_moves[direction](row, col)
+
+    if row not in range(len(matrix)) or col not in range(len(matrix[row])) or matrix[row][col] == "X":
         coins //= 2
-        return f"Game over! You've collected {coins} coins.", path
+        print(f"Game over! You've collected {coins} coins.")
+        break
 
-    coins += int(maze[r][c])
-    path.append([r, c])
-    return play(maze, r, c, path, coins)
+    coins += int(matrix[row][col])
+    path.append([row, col])
+else:
+    print(f"You won! You've collected {coins} coins.")
 
-
-matrix = [input().split() for _ in range(int(input()))]
-initial_r_c = find_player(matrix)
-result, path_data = play(matrix, *initial_r_c)
-print(f"{result}\nYour path:")
-[print(x) for x in path_data]
+print(f"Your path: ")
+[print(el) for el in path]
