@@ -1,66 +1,64 @@
-def find_shooter(field):
-    for r in range(len(field)):
-        for c in range(len(field[r])):
-            if field[r][c] == "A":
-                return r, c
+class Shooter:
+    __directions = {
+        "up": lambda r, c: (r-1, c),
+        "down": lambda r, c: (r+1, c),
+        "left": lambda r, c: (r, c-1),
+        "right": lambda r, c: (r, c+1),
+    }
 
+    def __init__(self, field):
+        self.field = field
+        self.shoot_targets = []
+        self.total_targets_count = sum([field[r].count("x") for r in range(len(field))])
 
-def move(field, direction, steps):
-    r, c = find_shooter(field)
-    r1, c1 = r, c
-    if direction == "right":
-        c1 += steps
-    elif direction == "left":
-        c1 -= steps
-    elif direction == "up":
-        r1 -= steps
-    elif direction == "down":
-        r1 += steps
+    def find_shooter(self):
+        for r in range(len(self.field)):
+            for c in range(len(self.field[r])):
+                if self.field[r][c] == "A":
+                    return r, c
 
-    if r1 in range(len(field)) and c1 in range(len(field[r1])) and field[r1][c1] == ".":
-        field[r][c] = "."
-        field[r1][c1] = "A"
-        return field
+    def move(self, direction, steps):
+        r, c = self.find_shooter()
+        r1, c1 = r, c
+        for _ in range(steps):
+            r1, c1 = Shooter.__directions[direction](r1, c1)
 
-    return field
+        if r1 in range(len(self.field)) and c1 in range(len(self.field[r1])) and self.field[r1][c1] == ".":
+            self.field[r][c] = "."
+            self.field[r1][c1] = "A"
+            return
 
+    def shoot(self, direction):
+        r, c = self.find_shooter()
+        while self.field[r][c] != "x":
+            r, c = Shooter.__directions[direction](r, c)
 
-def shoot(field, direction, targets):
-    r, c = find_shooter(field)
-    while field[r][c] != "x":
-        if direction == "right":
-            c += 1
-        elif direction == "left":
-            c -= 1
-        elif direction == "up":
-            r -= 1
-        elif direction == "down":
-            r += 1
+            if r not in range(len(self.field)) or c not in range(len(self.field[r])):
+                return self.shoot_targets
 
-        if r not in range(len(field)) or c not in range(len(field[r])):
-            return field, targets
-
-    targets.append([r, c])
-    field[r][c] = "."
-    return field, targets
+        self.shoot_targets.append([r, c])
+        self.field[r][c] = "."
+        return self.shoot_targets
 
 
 matrix = [input().split() for _ in range(5)]
-targets_count = sum([matrix[r].count("x") for r in range(len(matrix))])
-shoot_targets = []
+shooter = Shooter(matrix)
+
 for _ in range(int(input())):
     command = input().split()
+
     if "move" in command:
         direct, steps_count = command[1], int(command[2])
-        matrix = move(matrix, direct, steps_count)
+        shooter.move(direct, steps_count)
+
     elif "shoot" in command:
         direct = command[1]
-        matrix, shoot_targets = shoot(matrix, direct, shoot_targets)
+        shooter.shoot(direct)
 
-    if len(shoot_targets) == targets_count:
-        print(f"Training completed! All {targets_count} targets hit.")
+    if len(shooter.shoot_targets) == shooter.total_targets_count:
+        print(f"Training completed! All {shooter.total_targets_count} targets hit.")
         break
 else:
-    print(f"Training not completed! {targets_count - len(shoot_targets)} targets left.")
+    print(f"Training not completed! {shooter.total_targets_count - len(shooter.shoot_targets)} targets left.")
 
-[print(shoot_targets[r]) for r in range(len(shoot_targets))]
+[print(shooter.shoot_targets[r]) for r in range(len(shooter.shoot_targets))]

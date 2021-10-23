@@ -1,31 +1,38 @@
-def find_bunny(field):
-    for r in range(len(field)):
-        for c in range(len(field[r])):
-            if field[r][c] == "B":
-                return r, c
+class Bunnie:
+    __possible_directions = {
+            "up": lambda row, col: (row - 1, col),
+            "down": lambda row, col: (row + 1, col),
+            "left": lambda row, col: (row, col - 1),
+            "right": lambda row, col: (row, col + 1),
+        }
+
+    def __init__(self, field):
+        self.field = field
+
+    def find_bunny(self):
+        for r in range(len(self.field)):
+            for c in range(len(self.field[r])):
+                if self.field[r][c] == "B":
+                    return r, c
+
+    def collect_eggs(self, direction, r, c):
+        moves = []
+        r, c = Bunnie.__possible_directions[direction](r, c)
+        while r in range(len(self.field)) and c in range(len(self.field[r])) and self.field[r][c] != "X":
+            moves.append([r, c])
+            r, c = Bunnie.__possible_directions[direction](r, c)
+
+        return moves
+
+    def get_collected_eggs_count(self, moves):
+        return sum([int(self.field[r][c]) for r, c in moves])
 
 
-def collect_eggs(field, direction, r, c):
-    moves = []
-    possible_directions = {
-        "up": lambda row, col: (row-1, col),
-        "down": lambda row, col: (row+1, col),
-        "left": lambda row, col: (row, col-1),
-        "right": lambda row, col: (row, col+1),
-    }
-    r, c = possible_directions[direction](r, c)
-    while r in range(len(field)) and c in range(len(field[r])) and field[r][c] != "X":
-        moves.append([r, c])
-        r, c = possible_directions[direction](r, c)
-
-    return moves
-
-
-def play(field, directions):
+def play(bunnie, directions):
     max_collected_eggs, direction_to_go, made_moves = 0, "", []
     for direction in directions:
-        moves = collect_eggs(field, direction, *find_bunny(matrix))
-        collected_eggs = sum([int(field[r][c]) for r, c in moves])
+        moves = bunnie.collect_eggs(direction, *bunnie.find_bunny())
+        collected_eggs = bunnie.get_collected_eggs_count(moves)
 
         if collected_eggs >= max_collected_eggs:
             max_collected_eggs = collected_eggs
@@ -42,4 +49,4 @@ def play(field, directions):
 
 matrix = [input().split() for _ in range(int(input()))]
 possible_moves = ["up", "down", "left", "right"]
-print(play(matrix, possible_moves))
+print(play(Bunnie(matrix), possible_moves))

@@ -1,80 +1,82 @@
-def find_santa(field):
-    for r in range(len(field)):
-        for c in range(len(field[r])):
-            if field[r][c] == "S":
-                return r, c
+class Christmas:
+    __possible_moves = {
+        "up": lambda row, col: (row - 1, col),
+        "down": lambda row, col: (row + 1, col),
+        "left": lambda row, col: (row, col - 1),
+        "right": lambda row, col: (row, col + 1),
+    }
+
+    def __init__(self, field, presents_count):
+        self.field = field
+        self.presents_count = presents_count
+        self.nice_kids_count = sum([field[r].count("V") for r in range(len(field))])
+        self._initial_nice_kids_count = self.nice_kids_count
+
+    def find_santa(self):
+        for r in range(len(self.field)):
+            for c in range(len(self.field[r])):
+                if self.field[r][c] == "S":
+                    return r, c
+
+    def get_next_move(self, direction):
+        r, c = self.find_santa()
+        r1, c1 = Christmas.__possible_moves[direction](r, c)
+        if r1 in range(len(self.field)) and c1 in range(len(self.field[r1])):
+            self.field[r][c] = "-"
+            return r1, c1
+        return r, c
+
+    def check_house(self, r, c):
+        if self.field[r][c] == "V":
+            self.nice_kids_count -= 1
+            self.presents_count -= 1
+            self.field[r][c] = "-"
+
+        elif self.field[r][c] == "X":
+            self.field[r][c] = "-"
+
+        elif self.field[r][c] == "C":
+            self.cookie_rush(r, c)
+
+        self.field[r][c] = "S"
+
+    def cookie_rush(self, r, c):
+        kids = ["V", "X"]
+        for r, c in [(r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)]:
+            if self.field[r][c] in kids and self.presents_count:
+                if self.field[r][c] == "V":
+                    self.nice_kids_count -= 1
+
+                self.field[r][c] = "-"
+                self.presents_count -= 1
+
+    def get_field(self):
+        return '\n'.join([f"{' '.join(self.field[r])} " for r in range(len(self.field))])
+
+    def __str__(self):
+        if not self.nice_kids_count:
+            return f"Good job, Santa! {self._initial_nice_kids_count} happy nice kid/s."
+        else:
+            return f"No presents for {self.nice_kids_count} nice kid/s."
 
 
-def move(field, direction):
-    r, c = find_santa(field)
-    r1, c1 = r, c
-    if direction == "up":
-        r1 -= 1
-    elif direction == "down":
-        r1 += 1
-    elif direction == "left":
-        c1 -= 1
-    elif direction == "right":
-        c1 += 1
-
-    if r1 in range(len(field)) and c1 in range(len(field[r1])):
-        field[r][c] = "-"
-        return field, r1, c1
-
-    return field, r, c
-
-
-def check_house(field, r, c, nice_kids, presents):
-    if field[r][c] == "V":
-        nice_kids -= 1
-        presents -= 1
-        field[r][c] = "-"
-
-    elif field[r][c] == "X":
-        field[r][c] = "-"
-
-    elif field[r][c] == "C":
-        field, nice_kids, presents = cookie_rush(field, r, c, nice_kids, presents)
-
-    field[r][c] = "S"
-    return field, nice_kids, presents
-
-
-def cookie_rush(field, r, c, nice_kids, presents):
-    kids = ["V", "X"]
-    for r1, c1 in [(r-1, c), (r+1, c), (r, c-1), (r, c+1)]:
-        if field[r1][c1] in kids and presents:
-            if field[r1][c1] == "V":
-                nice_kids -= 1
-
-            field[r1][c1] = "-"
-            presents -= 1
-
-    return field, nice_kids, presents
-
-
-def play(field, nice_kids, presents):
+def change_field(christmas: Christmas):
     direction = input()
     while direction != "Christmas morning":
-        field, r, c = move(field, direction)
-        field, nice_kids, presents = check_house(field, r, c, nice_kids, presents)
-        if not presents:
-            if nice_kids:
+        christmas.check_house(*christmas.get_next_move(direction))
+        if not christmas.presents_count:
+            if christmas.nice_kids_count:
                 print(f"Santa ran out of presents!")
             break
 
         direction = input()
 
-    return field, nice_kids
+    res = christmas.get_field()
+    return res
 
 
-presents_count = int(input())
+presents = int(input())
 matrix = [input().split() for _ in range(int(input()))]
-initial_nice_kids_count = sum([matrix[r].count("V") for r in range(len(matrix))])
-matrix, nice_kids_count = play(matrix, initial_nice_kids_count, presents_count)
-
-[print(' '.join(matrix[r])) for r in range(len(matrix))]
-if not nice_kids_count:
-    print(f"Good job, Santa! {initial_nice_kids_count} happy nice kid/s.")
-else:
-    print(f"No presents for {nice_kids_count} nice kid/s.")
+christmas_object = Christmas(matrix, presents)
+print(change_field(christmas_object))
+print(christmas_object)

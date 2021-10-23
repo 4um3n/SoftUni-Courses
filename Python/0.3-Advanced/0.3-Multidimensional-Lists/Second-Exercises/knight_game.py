@@ -1,46 +1,61 @@
-def check_kills_count(field, r, c):
-    kills_count = 0
-    moves = [
-        (r-2, c-1),
-        (r-2, c+1),
-        (r+2, c-1),
-        (r+2, c+1),
-        (r-1, c-2),
-        (r-1, c+2),
-        (r+1, c-2),
-        (r+1, c+2)
-    ]
-    for r, c in moves:
-        if r in range(len(matrix)) and c in range(len(matrix[r])) and field[r][c] == "K":
-            kills_count += 1
+class Chess:
+    def __init__(self, field):
+        self.field = field
+        self.killed_knights = 0
 
-    return kills_count
+    @staticmethod
+    def get_moves(row, col):
+        return [
+            (row - 2, col - 1),
+            (row - 2, col + 1),
+            (row + 2, col - 1),
+            (row + 2, col + 1),
+            (row - 1, col - 2),
+            (row - 1, col + 2),
+            (row + 1, col - 2),
+            (row + 1, col + 2)
+        ]
 
+    def get_knights_positions(self):
+        knights_positions = []
+        for row in range(len(self.field)):
+            for col in range(len(self.field[row])):
+                if self.field[row][col] == "K":
+                    knights_positions.append((row, col))
 
-def check_knight_with_max_kills(field):
-    kills_count = 0
-    r1, c1 = None, None
-    for r in range(len(field)):
-        for c in range(len(field[r])):
-            if field[r][c] == "K":
-                current_kills = check_kills_count(field, r, c)
-                if current_kills > kills_count:
-                    kills_count = current_kills
-                    r1, c1 = r, c
+        return knights_positions
 
-    return r1, c1
+    def get_current_knight_kills_count(self, row, col):
+        kills_count = 0
+        moves = self.get_moves(row, col)
+        for row, col in moves:
+            if row in range(len(self.field)) and col in range(len(self.field[row])) and self.field[row][col] == "K":
+                kills_count += 1
 
+        return kills_count
 
-def game(field):
-    killed_knights = 0
-    r, c = check_knight_with_max_kills(field)
-    while r is not None and c is not None:
-        field[r][c] = 0
-        killed_knights += 1
-        r, c = check_knight_with_max_kills(field)
+    def get_knight_with_max_kills(self):
+        kills_count = 0
+        row, col = None, None
+        knights_positions = self.get_knights_positions()
+        for r1, c1 in knights_positions:
+            current_kills = self.get_current_knight_kills_count(r1, c1)
+            if current_kills > kills_count:
+                kills_count = current_kills
+                row, col = r1, c1
 
-    return killed_knights
+        return row, col
+
+    def kill_knight(self, row, col):
+        self.field[row][col] = 0
 
 
 matrix = [list(input()) for _ in range(int(input()))]
-print(game(matrix))
+chess = Chess(matrix)
+r, c = chess.get_knight_with_max_kills()
+while r is not None and c is not None:
+    chess.kill_knight(r, c)
+    chess.killed_knights += 1
+    r, c = chess.get_knight_with_max_kills()
+
+print(chess.killed_knights)
