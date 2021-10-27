@@ -11,19 +11,17 @@ class Band:
         return f"Band {self.name} has added their newest album {album.username}."
 
     def remove_album(self, album_name):
-        for i in range(len(self.albums)):
-            if self.albums[i].username == album_name:
-                if self.albums[i].published:
+        for album in self.albums:
+            if album.username == album_name:
+                if album.published:
                     return f"Album has been published. It cannot be removed."
 
-                break
-        else:
-            return f"Album {album_name} is not found."
+                self.albums.remove(album)
+                return f"Album {album_name} has been removed."
 
-        self.albums.pop(i)
-        return f"Album {album_name} has been removed."
+        return f"Album {album_name} is not found."
 
     def details(self):
-        info = f"Band {self.name}\n"
-        info += '\n'.join([a.details() for a in self.albums])
-        return info
+        info = [f"Band {self.name}"]
+        info.extend([a.details() for a in self.albums])
+        return '\n'.join(info)

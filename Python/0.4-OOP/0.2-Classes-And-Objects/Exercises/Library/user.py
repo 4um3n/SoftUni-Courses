@@ -18,6 +18,7 @@ class User:
 
         self.books.append(book_name)
         library.books_available[author].remove(book_name)
+
         if self.username not in library.rented_books:
             library.rented_books.update({self.username: {}})
 

@@ -14,9 +14,9 @@ class Player:
         return f"Skill {skill_name} added to the collection of the player {self.name}"
 
     def player_info(self):
-        res = [f"Name: {self.name}", f"Guild: {self.guild}", f"HP: {self.hp}", f"MP: {self.mp}"]
+        info = [f"Name: {self.name}", f"Guild: {self.guild}", f"HP: {self.hp}", f"MP: {self.mp}"]
 
         if self.skills:
-            res.extend([f"==={k} - {v}" for k, v in self.skills.items()])
+            info.extend([f"==={k} - {v}" for k, v in self.skills.items()])
 
-        return '\n'.join(res)
+        return '\n'.join(info)

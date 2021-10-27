@@ -1,6 +1,6 @@
 class Album:
     def __init__(self, name, *songs):
-        self.name = name
+        self.username = name
         self.songs = list(songs)
         self.published = False
 
@@ -15,29 +15,27 @@ class Album:
             return f"Song is already in the album."
 
         self.songs.append(song)
-        return f"Song {song.username} has been added to the album {self.name}."
+        return f"Song {song.username} has been added to the album {self.username}."
 
     def remove_song(self, song_name):
         if self.published:
             return f"Cannot remove songs. Album is published."
 
-        for i in range(len(self.songs)):
-            if self.songs[i].username == song_name:
-                break
-        else:
-            return f"Song is not in the album."
+        for song in self.songs:
+            if song.username == song_name:
+                self.songs.remove(song)
+                return f"Removed song {song_name} from album {self.username}."
 
-        self.songs.pop(i)
-        return f"Removed song {song_name} from album {self.name}."
+        return f"Song is not in the album."
 
     def publish(self):
         if self.published:
-            return f"Album {self.name} is already published."
+            return f"Album {self.username} is already published."
 
         self.published = True
-        return f"Album {self.name} has been published."
+        return f"Album {self.username} has been published."
 
     def details(self):
-        info = f"Album {self.name}\n"
-        info += '\n'.join([f"== {s.get_info()}" for s in self.songs])
-        return info
+        info = [f"Album {self.username}"]
+        info.extend([f"== {s.get_info()}" for s in self.songs])
+        return '\n'.join(info)
