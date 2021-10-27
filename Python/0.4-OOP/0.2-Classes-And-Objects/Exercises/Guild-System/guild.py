@@ -15,18 +15,15 @@ class Guild:
         return f"Welcome player {player.username} to the guild {self.name}"
 
     def kick_player(self, player_name):
-        for p in self.players:
-            if p.username == player_name:
-                p.guild = "Unaffiliated"
-                self.players.remove(p)
+        for player in self.players:
+            if player.username == player_name:
+                player.guild = "Unaffiliated"
+                self.players.remove(player)
                 return f"Player {player_name} has been removed from the guild."
 
         return f"Player {player_name} is not in the guild."
 
     def guild_info(self):
         info = [f"Guild: {self.name}"]
-
-        if self.players:
-            info.extend([p.player_info() for p in self.players])
-
+        info.extend([p.player_info() for p in self.players])
         return '\n'.join(info)
