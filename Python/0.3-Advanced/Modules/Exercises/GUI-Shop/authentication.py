@@ -10,9 +10,14 @@ credentials_file_path = os.path.join(current_path, 'DB', 'user_credentials_db.tx
 def register_validator(**user):
     user = {k: v.get() for k, v in user.items()}
     error = []
+    mapper = {
+        "username": "username",
+        "password": "password",
+    }
+
     for k, v in user.items():
-        if not v and k != 'is_admin':
-            error.append(f"Enter {' '.join(k.split('_'))}!")
+        if not v:
+            error.append(f"Enter {mapper[k]}!")
 
     if error:
         return '\n'.join(error)
@@ -24,13 +29,13 @@ def register_validator(**user):
             lower_letters = re.findall(r"[a-z]+", v)
 
             if len(v) < 8:
-                error.append(f"Password must be at least 8 symbols long!")
+                error.append(f"Password must contain at least 8 symbols!")
             if not digits:
-                error.append(f"Password must contain one or more digits!")
+                error.append(f"Password must contain at least one digit!")
             if not upper_letters:
-                error.append(f"Password must contain upper case letters!")
+                error.append(f"Password must contain at least one upper case letter!")
             if not lower_letters:
-                error.append(f"Password must contain lower case letters!")
+                error.append(f"Password must contain at least one lower case letter!")
 
             if error:
                 return '\n'.join(error)
@@ -43,7 +48,7 @@ def register_validator(**user):
         file.write(f"{user['username']}, {user['password']}\n")
 
     del user['password']
-    user.update({'products': []})
+    user.update({'sold_products': []})
 
     with open(users_file_path, 'a', newline='\n') as file:
         file.write(json.dumps(user))
@@ -62,12 +67,3 @@ def login_validator(username, password):
 
         return False
 
-
-def is_user_admin(username):
-    with open(users_file_path, 'r') as file:
-        for line in file.read().split('\n'):
-            if line:
-                line = json.loads(line)
-                if username == line['username'] and line['is_admin']:
-                    return True
-    return False

@@ -1,9 +1,15 @@
-{"id": 1, "name": "Bananas", "img_path": "bananas.jpeg", "quantity": 9}
-{"id": 2, "name": "Pancakes", "img_path": "pancakes.jpeg", "quantity": 8}
-{"id": 3, "name": "Pizza", "img_path": "pizza.jpeg", "quantity": 4}
-{"name": "Coffee", "quantity": 0, "img_path": "coffee.png", "id": 4}
-{"name": "Orange juice", "quantity": 5, "img_path": "orange-juice.jpeg", "id": 5}
-{"name": "Vanila Ice Cream", "quantity": 2, "img_path": "vanila-ice-cream.jpeg", "id": 6}
-{"name": "Chocolate Ice Cream", "quantity": 7, "img_path": "chocolate-ice-cream.jpeg", "id": 7}
-{"name": "Fried Potatoes", "quantity": 21, "img_path": "fried-potatoes.jpeg", "id": 8}
-{"name": "Kebap", "quantity": 0, "img_path": "kebap.jpeg", "id": 9}
+{"name": "Amix Beef Protein", "taste": "Chocolate", "quantity": 70.0, "price": 2.0, "unit": "gr", "doze": 30.0, "img_path": "amix-beef-protein.jpg", "id": 1}
+{"name": "Animal Cuts", "taste": "Neutral", "quantity": 40.0, "price": 3.0, "unit": "count", "doze": 1.0, "img_path": "animal-cuts.jpg", "id": 2}
+{"name": "Animal Flex", "taste": "Neutral", "quantity": 44.0, "price": 3.0, "unit": "count", "doze": 1.0, "img_path": "animal-flex.jpg", "id": 3}
+{"name": "Biotech Iso Whey", "taste": "Strawberry", "quantity": 100.0, "price": 2.5, "unit": "gr", "doze": 30.0, "img_path": "biotech-usa-iso-whey-zero.jpg", "id": 4}
+{"name": "BSN Amino", "taste": "Lollipop", "quantity": 40.0, "price": 2.0, "unit": "gr", "doze": 5.0, "img_path": "bsn-amino.jpg", "id": 5}
+{"name": "EVERBUILD  Beef Amino", "taste": "Neutral", "quantity": 45.0, "price": 2.0, "unit": "gr", "doze": 5.0, "img_path": "everbuild-cryo-beef-amino.jpg", "id": 6}
+{"name": "EVERBUILD Liquid L-Carnitine", "taste": "Orange", "quantity": 90.0, "price": 2.0, "unit": "ml", "doze": 30.0, "img_path": "everbuild-liquid-l-carnitine.jpg", "id": 7}
+{"name": "EVERBUILD Premium Whey", "taste": "Salted Caramel", "quantity": 300.0, "price": 3.0, "unit": "gr", "doze": 30.0, "img_path": "everbuild-ultra-premium-whey.jpg", "id": 8}
+{"name": "HAYA Labs AAKG", "taste": "Neutral", "quantity": 100.0, "price": 2.0, "unit": "gr", "doze": 10.0, "img_path": "haya-labs-aakg.jpg", "id": 9}
+{"name": "Hot Blood Buster", "taste": "Raspberry", "quantity": 90.0, "price": 2.0, "unit": "gr", "doze": 5.0, "img_path": "hot-blood-booster.jpg", "id": 10}
+{"name": "NOW Omega 3 Fish Oil", "taste": "Neutral", "quantity": 100.0, "price": 3.0, "unit": "count", "doze": 3.0, "img_path": "now-omega-3-fish-oil.png", "id": 11}
+{"name": "Optimum Nutrition Casein", "taste": "Vanilla", "quantity": 100.0, "price": 3.0, "unit": "gr", "doze": 30.0, "img_path": "optimum-nutrition-casein.jpg", "id": 12}
+{"name": "Optimum Nutririon Whey", "taste": "White Chocolate", "quantity": 100.0, "price": 3.0, "unit": "gr", "doze": 30.0, "img_path": "optimum-nutrition-whey-protein-chocolate.jpg", "id": 13}
+{"name": "Optimum Nutrition Whey", "taste": "Vanilla", "quantity": 100.0, "price": 3.0, "unit": "gr", "doze": 30.0, "img_path": "optimum-nutrition-whey-protein-vanilla.jpg", "id": 14}
+{"name": "SCITECH Amino Acids", "taste": "Neutral", "quantity": 100.0, "price": 2.0, "unit": "gr", "doze": 5.0, "img_path": "scitech-amino.jpg", "id": 15}
