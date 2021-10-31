@@ -28,11 +28,11 @@ class Gym:
 
     def subscription_info(self, subscription_id: int):
         customer_id, trainer_id, plan_id, equipment_id = 0, 0, 0, 0
-        info = [s.__repr__() for s in self.subscriptions if s.id == subscription_id]
         for subscription in self.subscriptions:
             if subscription.id == subscription_id:
                 customer_id = subscription.customer_id
                 trainer_id = subscription.trainer_id
+                info.append(subscription.__repr__())
 
         for plan in self.plans:
             if plan.trainer_id == trainer_id:
