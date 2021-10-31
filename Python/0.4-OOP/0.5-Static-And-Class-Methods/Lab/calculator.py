@@ -12,7 +12,7 @@ class Calculator:
 
     @staticmethod
     def divide(*args):
-        return reduce(lambda x, y: x / y if x != 0 and y != 0 else None, args)
+        return reduce(lambda x, y: x / y if x != 0 and y != 0 else 1, args)
 
     @staticmethod
     def subtract(*args):
