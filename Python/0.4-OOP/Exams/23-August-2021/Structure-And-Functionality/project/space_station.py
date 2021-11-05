@@ -99,6 +99,6 @@ class SpaceStation:
         ]
 
         for astronaut in self.astronaut_repository.astronauts:
-            info.append(astronaut.__repr__())
+            info.append(repr(astronaut))
 
         return '\n'.join(info)
