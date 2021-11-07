@@ -45,4 +45,4 @@ class BaseFish(ABC):
 
     @abstractmethod
     def eat(self):
-        pass
+        self.size += BaseFish.FISH_SIZE_INCREASING_VALUE

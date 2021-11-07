@@ -1,11 +1,11 @@
 class DecorationRepository:
-    def __init__(self):
+    def __init__(self) -> None:
         self.decorations = []
 
-    def add(self, decoration):
+    def add(self, decoration) -> None:
         self.decorations.append(decoration)
 
-    def remove(self, decoration):
+    def remove(self, decoration) -> bool:
         if decoration in self.decorations:
             self.decorations.remove(decoration)
             return True

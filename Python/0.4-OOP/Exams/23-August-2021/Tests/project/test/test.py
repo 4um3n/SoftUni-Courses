@@ -60,7 +60,5 @@ class LibraryTests(TestCase):
         self.assertDictEqual({"name": [{"author": "title"}]}, self.library.readers)
 
 
-
-
 if __name__ == '__main__':
     main()

@@ -11,7 +11,7 @@ class PetShopTests(TestCase):
         self.assertDictEqual({}, self.pet_shop.food)
         self.assertListEqual([], self.pet_shop.pets)
 
-    def test_add_food_negative_or_zero_quantity_raises(self):
+    def test_add_food_quantity_less_than_or_equal_zer_raises(self):
         with self.assertRaises(ValueError) as ex:
             self.pet_shop.add_food("name", 0)
 

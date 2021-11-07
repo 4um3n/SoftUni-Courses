@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class Table(ABC):
     @abstractmethod
-    def __init__(self, table_number: int, capacity: int):
+    def __init__(self, table_number: int, capacity: int) -> None:
         self.table_number = table_number
         self.capacity = capacity
         self.food_orders = []
@@ -22,32 +22,32 @@ class Table(ABC):
 
         self.__capacity = value
 
-    def reserve(self, number_of_people: int) -> bool:
+    def reserve(self, number_of_people: int) -> str:
         if not self.is_reserved and number_of_people <= self.capacity:
             self.number_of_people = number_of_people
             self.is_reserved = True
-            return True
+            return f"Table {self.table_number} has been reserved for {number_of_people} people"
 
-        return False
+        return f"No available table for {number_of_people} people"
 
-    def order_food(self, baked_food):
+    def order_food(self, baked_food) -> None:
         self.food_orders.append(baked_food)
 
-    def order_drink(self, drink):
+    def order_drink(self, drink) -> None:
         self.drink_orders.append(drink)
 
-    def get_bill(self):
+    def get_bill(self) -> float:
         food_price = sum([f.price for f in self.food_orders])
         drinks_price = sum([d.price for d in self.drink_orders])
         return food_price + drinks_price
 
-    def clear(self):
+    def clear(self) -> None:
         self.food_orders.clear()
         self.drink_orders.clear()
         self.number_of_people = 0
         self.is_reserved = False
 
-    def free_table_info(self):
+    def free_table_info(self) -> str:
         if not self.is_reserved:
             return f"Table: {self.table_number}\n" \
                    f"Type: {type(self).__name__}\n" \

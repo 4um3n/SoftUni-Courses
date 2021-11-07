@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class BaseAquarium(ABC):
     @abstractmethod
-    def __init__(self, name: str, capacity: int):
+    def __init__(self, name: str, capacity: int) -> None:
         self.name = name
         self.capacity = capacity
         self.decorations = []
@@ -20,10 +20,10 @@ class BaseAquarium(ABC):
 
         self.__name = value
 
-    def calculate_comfort(self):
+    def calculate_comfort(self) -> int:
         return sum([d.comfort for d in self.decorations])
 
-    def add_fish(self, fish):
+    def add_fish(self, fish) -> str:
         if len(self.fish) >= self.capacity:
             return f"Not enough capacity."
 
@@ -33,14 +33,14 @@ class BaseAquarium(ABC):
 
         return f"Water not suitable."
 
-    def remove_fish(self, fish):
+    def remove_fish(self, fish) -> None:
         if fish in self.fish:
             self.fish.remove(fish)
 
-    def add_decoration(self, decoration):
+    def add_decoration(self, decoration) -> None:
         self.decorations.append(decoration)
 
-    def feed(self):
+    def feed(self) -> int:
         fed_fish_count = 0
         for fish in self.fish:
             fed_fish_count += 1
@@ -48,10 +48,8 @@ class BaseAquarium(ABC):
 
         return fed_fish_count
 
-    def __str__(self):
+    def __str__(self) -> str:
         info = [f"{self.name}:", f"Decorations: {len(self.decorations)}", f"Comfort: {self.calculate_comfort()}"]
         fish = "none" if not self.fish else ' '.join([f.name for f in self.fish])
         info.insert(1, f"Fish: {fish}")
         return '\n'.join(info)
-
-

@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class BakedFood(ABC):
     @abstractmethod
-    def __init__(self, name: str, portion: float, price: float):
+    def __init__(self, name: str, portion: float, price: float) -> None:
         self.name = name
         self.portion = portion
         self.price = price
@@ -30,5 +30,5 @@ class BakedFood(ABC):
 
         self.__price = value
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f" - {self.name}: {self.portion:.2f}g - {self.price:.2f}lv"
