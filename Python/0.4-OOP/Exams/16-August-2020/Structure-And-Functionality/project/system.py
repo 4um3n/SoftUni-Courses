@@ -90,14 +90,12 @@ class System:
             f"Software Components: {len(System._software)}"
         ]
         total_memory, total_capacity = 0, 0
+        total_memory_consumption, total_taken_capacity = 0, 0
         for hardware in System._hardware:
             total_memory += hardware.memory
             total_capacity += hardware.capacity
-
-        total_memory_consumption, total_taken_capacity = 0, 0
-        for software in System._software:
-            total_memory_consumption += software.memory_consumption
-            total_taken_capacity += software.capacity_consumption
+            total_memory_consumption += hardware.taken_memory
+            total_taken_capacity += hardware.taken_capacity
 
         info.append(f"Total Operational Memory: {total_memory_consumption} / {total_memory}")
         info.append(f"Total Capacity Taken: {total_taken_capacity} / {total_capacity}")
