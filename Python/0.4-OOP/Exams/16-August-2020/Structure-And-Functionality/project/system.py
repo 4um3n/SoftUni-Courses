@@ -55,7 +55,7 @@ class System:
         light_software = System.__SOFTWARE_CREATION_MAPPER['light'](name, capacity_consumption, memory_consumption)
         try:
             hardware.install(light_software)
-        except Exception():
+        except Exception:
             return f"Software cannot be installed"
 
         System._software.append(light_software)
