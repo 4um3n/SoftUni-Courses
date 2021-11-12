@@ -82,11 +82,11 @@ class Bakery:
     def _make_order_of_available_table(self, table: Table, order: str, ordered_products: tuple) -> tuple:
         product_in_menu, product_not_in_menu = [], []
         products = self.products[order]
-        products_names_in_menu = {pr.name: pr for pr in products}
+        products = {pr.name: pr for pr in products}
 
         for product_name in ordered_products:
-            if product_name in products_names_in_menu:
-                product_obj = products_names_in_menu[product_name]
+            if product_name in products:
+                product_obj = products[product_name]
                 self.order_mapper[order](table)(product_obj)
                 product_in_menu.append(product_obj)
             else:
