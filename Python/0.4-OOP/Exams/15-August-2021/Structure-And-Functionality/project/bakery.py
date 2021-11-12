@@ -8,6 +8,11 @@ from project.table.table import Table
 
 
 class Bakery:
+    order_mapper = {
+        "food": lambda t: t.order_food,
+        "drinks": lambda t: t.order_drink,
+    }
+
     __FOOD_MAPPER = {
         "Cake": Cake,
         "Bread": Bread,
@@ -25,6 +30,10 @@ class Bakery:
         self.name = name
         self.food_menu = []
         self.drinks_menu = []
+        self.products = {
+            "food": self.food_menu,
+            "drinks": self.drinks_menu
+        }
         self.tables_repository = []
         self.total_income = 0
 
@@ -70,15 +79,16 @@ class Bakery:
         for table in self.tables_repository:
             return table.reserve(number_of_people)
 
-    def _check_order_of_available_table(self, table: Table, order: str, ordered_products: tuple) -> tuple:
+    def _make_order_of_available_table(self, table: Table, order: str, ordered_products: tuple) -> tuple:
         product_in_menu, product_not_in_menu = [], []
-        products = self.food_menu if order == "food" else self.drinks_menu
+        products = self.products[order]
         products_names_in_menu = {pr.name: pr for pr in products}
 
         for product_name in ordered_products:
             if product_name in products_names_in_menu:
-                table.order_food(products_names_in_menu[product_name])
-                product_in_menu.append(products_names_in_menu[product_name])
+                product_obj = products_names_in_menu[product_name]
+                self.order_mapper[order](table)(product_obj)
+                product_in_menu.append(product_obj)
             else:
                 product_not_in_menu.append(product_name)
 
@@ -87,7 +97,7 @@ class Bakery:
     def _check_table_availability(self, table_number: int, order: str, ordered_products: tuple) -> str:
         for table in self.tables_repository:
             if table.table_number == table_number:
-                products_in_menu, products_not_in_menu = self._check_order_of_available_table(
+                products_in_menu, products_not_in_menu = self._make_order_of_available_table(
                     table, order, ordered_products)
                 info = [f"Table {table_number} ordered:"]
                 info.extend([repr(d) for d in products_in_menu])
