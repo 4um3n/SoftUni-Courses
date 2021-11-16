@@ -9,8 +9,7 @@ class PlanetRepository:
         self.planets.append(planet)
 
     def remove(self, planet: Planet) -> None:
-        if planet in self.planets:
-            self.planets.remove(planet)
+        self.planets.remove(planet)
 
     def find_by_name(self, name: str) -> Planet:
         for planet in self.planets:

@@ -15,3 +15,13 @@ class AstronautRepository:
         for astronaut in self.astronauts:
             if astronaut.name == name:
                 return astronaut
+
+    def recharge_astronauts_oxygen(self, value):
+        for astronaut in self.astronauts:
+            astronaut.increase_oxygen(value)
+
+    def get_suitable_astronauts(self):
+        return [ast for ast in sorted(self.astronauts, key=lambda a: -a.oxygen) if ast.oxygen > 30]
+
+    def __repr__(self) -> str:
+        return '\n'.join([repr(astronaut) for astronaut in self.astronauts])
