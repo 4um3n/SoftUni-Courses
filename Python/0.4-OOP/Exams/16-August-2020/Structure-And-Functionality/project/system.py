@@ -31,34 +31,27 @@ class System:
         System._hardware.append(power_hardware)
 
     @staticmethod
-    def register_express_software(hardware_name: str, name: str,
-                                  capacity_consumption: int, memory_consumption: int) -> str:
-        hardware = System._get_hardware_by_name(hardware_name)
-        if hardware is None:
-            return f"Hardware does not exist"
+    def register_express_software(
+            hardware_name: str, name: str, capacity_consumption: int, memory_consumption: int):
 
         express_software = System.__SOFTWARE_CREATION_MAPPER['express'](name, capacity_consumption, memory_consumption)
-        try:
-            hardware.install(express_software)
-        except Exception:
-            return f"Software cannot be installed"
-
-        System._software.append(express_software)
+        return System._register_software(express_software, hardware_name)
 
     @staticmethod
-    def register_light_software(hardware_name: str, name: str,
-                                  capacity_consumption: int, memory_consumption: int) -> str:
+    def register_light_software(
+            hardware_name: str, name: str, capacity_consumption: int, memory_consumption: int):
+
+        light_software = System.__SOFTWARE_CREATION_MAPPER['light'](name, capacity_consumption, memory_consumption)
+        return System._register_software(light_software, hardware_name)
+
+    @staticmethod
+    def _register_software(software: Software, hardware_name: str):
         hardware = System._get_hardware_by_name(hardware_name)
         if hardware is None:
             return f"Hardware does not exist"
 
-        light_software = System.__SOFTWARE_CREATION_MAPPER['light'](name, capacity_consumption, memory_consumption)
-        try:
-            hardware.install(light_software)
-        except Exception:
-            return f"Software cannot be installed"
-
-        System._software.append(light_software)
+        hardware.install(software)
+        System._software.append(software)
 
     @staticmethod
     def _get_hardware_by_name(name: str) -> Hardware:
