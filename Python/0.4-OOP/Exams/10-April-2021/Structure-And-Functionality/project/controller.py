@@ -45,11 +45,10 @@ class Controller:
         aquarium = self.find_aquarium_by_name(aquarium_name)
         if aquarium is not None:
             decoration = self.decorations_repository.find_by_type(decoration_type)
-            if decoration == "None":
+            if not self.decorations_repository.remove(decoration):
                 return f"There isn't a decoration of type {decoration_type}."
 
             aquarium.add_decoration(decoration)
-            self.decorations_repository.remove(decoration)
             return f"Successfully added {decoration_type} to {aquarium_name}."
 
     def add_fish(self, aquarium_name: str, fish_type: str, fish_name: str, fish_species: str, price: float) -> str:

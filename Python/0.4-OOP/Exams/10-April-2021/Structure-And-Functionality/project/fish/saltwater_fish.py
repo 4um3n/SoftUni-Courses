@@ -9,4 +9,4 @@ class SaltwaterFish(BaseFish):
         super().__init__(name=name, species=species, size=5, price=price)
 
     def eat(self):
-        self.size += SaltwaterFish.FISH_SIZE_INCREASING_VALUE
+        self.size += self.FISH_SIZE_INCREASING_VALUE

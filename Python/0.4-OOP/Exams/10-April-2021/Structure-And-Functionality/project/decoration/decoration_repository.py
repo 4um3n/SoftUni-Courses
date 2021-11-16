@@ -9,7 +9,6 @@ class DecorationRepository:
         if decoration in self.decorations:
             self.decorations.remove(decoration)
             return True
-
         return False
 
     def find_by_type(self, decoration_type: str):
