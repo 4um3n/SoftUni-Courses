@@ -22,13 +22,9 @@ class Table(ABC):
 
         self.__capacity = value
 
-    def reserve(self, number_of_people: int) -> str:
-        if not self.is_reserved and number_of_people <= self.capacity:
-            self.number_of_people = number_of_people
-            self.is_reserved = True
-            return f"Table {self.table_number} has been reserved for {number_of_people} people"
-
-        return f"No available table for {number_of_people} people"
+    def reserve(self, number_of_people: int):
+        self.number_of_people = number_of_people
+        self.is_reserved = True
 
     def order_food(self, baked_food) -> None:
         self.food_orders.append(baked_food)

@@ -8,7 +8,7 @@ from project.table.table import Table
 
 
 class Bakery:
-    order_mapper = {
+    __ORDER_MAKER = {
         "food": lambda t: t.order_food,
         "drinks": lambda t: t.order_drink,
     }
@@ -48,26 +48,57 @@ class Bakery:
 
         self.__name = value
 
-    def add_food(self, food_type: str, name: str, price: float) -> str:
-        if name in [f.name for f in self.food_menu]:
-            raise Exception(f"{food_type} {name} is already in the menu!")
+    @staticmethod
+    def _check_product_name_in_menu(name, menu, product_type):
+        if name in [p.name for p in menu]:
+            raise Exception(f"{product_type} {name} is already in the menu!")
 
+    def _find_table_by_number(self, table_number):
+        for table in self.tables_repository:
+            if table.table_number == table_number:
+                return table
+
+    def _sort_ordered_products(self, table: Table, order_type: str, ordered_products: tuple) -> tuple:
+        available_products, unavailable_products = [], []
+        products = {pr.name: pr for pr in self.products[order_type]}
+        for product_name in ordered_products:
+            if product_name in products:
+                product_obj = products[product_name]
+                self.__ORDER_MAKER[order_type](table)(product_obj)
+                available_products.append(repr(product_obj))
+            else:
+                unavailable_products.append(product_name)
+
+        return available_products, unavailable_products
+
+    def _get_table_order_report(self, table_number: int, order: str, ordered_products: tuple) -> str:
+        table = self._find_table_by_number(table_number)
+        if table is not None:
+            available_products, unavailable_products = self._sort_ordered_products(table, order, ordered_products)
+            info = [f"Table {table_number} ordered:"]
+            info.extend(available_products)
+            info.append(f"{self.name} does not have in the menu:")
+            info.extend(unavailable_products)
+            return '\n'.join(info)
+
+        return f"Could not find table {table_number}"
+
+    def add_food(self, food_type: str, name: str, price: float) -> str:
+        self._check_product_name_in_menu(name, self.food_menu, food_type)
         if food_type in self.__FOOD_MAPPER:
             food = self.__FOOD_MAPPER[food_type](name, price)
             self.food_menu.append(food)
             return f"Added {name} ({food_type}) to the food menu"
 
     def add_drink(self, drink_type: str, name: str, portion: int, brand: str) -> str:
-        if name in [d.name for d in self.drinks_menu]:
-            raise Exception(f"{drink_type} {name} is already in the menu!")
-
+        self._check_product_name_in_menu(name, self.drinks_menu, drink_type)
         if drink_type in self.__DRINKS_MAPPER:
             drink = self.__DRINKS_MAPPER[drink_type](name, portion, brand)
             self.drinks_menu.append(drink)
             return f"Added {name} ({brand}) to the drink menu"
 
     def add_table(self, table_type: str, table_number: int, capacity: int) -> str:
-        if table_number in [t.table_number for t in self.tables_repository]:
+        if self._find_table_by_number(table_number) is not None:
             raise Exception(f"Table {table_number} is already in the bakery!")
 
         if table_type in self.__TABLES_MAPPER:
@@ -77,50 +108,25 @@ class Bakery:
 
     def reserve_table(self, number_of_people: int) -> str:
         for table in self.tables_repository:
-            return table.reserve(number_of_people)
-
-    def _make_order_of_available_table(self, table: Table, order: str, ordered_products: tuple) -> tuple:
-        product_in_menu, product_not_in_menu = [], []
-        products = self.products[order]
-        products = {pr.name: pr for pr in products}
-
-        for product_name in ordered_products:
-            if product_name in products:
-                product_obj = products[product_name]
-                self.order_mapper[order](table)(product_obj)
-                product_in_menu.append(product_obj)
-            else:
-                product_not_in_menu.append(product_name)
-
-        return product_in_menu, product_not_in_menu
-
-    def _check_table_availability(self, table_number: int, order: str, ordered_products: tuple) -> str:
-        for table in self.tables_repository:
-            if table.table_number == table_number:
-                products_in_menu, products_not_in_menu = self._make_order_of_available_table(
-                    table, order, ordered_products)
-                info = [f"Table {table_number} ordered:"]
-                info.extend([repr(d) for d in products_in_menu])
-                info.append(f"{self.name} does not have in the menu:")
-                info.extend(products_not_in_menu)
-                return '\n'.join(info)
-
-        return f"Could not find table {table_number}"
+            if not table.is_reserved and number_of_people <= table.capacity:
+                table.reserve(number_of_people)
+                return f"Table {table.table_number} has been reserved for {number_of_people} people"
+        return f"No available table for {number_of_people} people"
 
     def order_food(self, table_number: int, *ordered_food: tuple) -> str:
-        return self._check_table_availability(table_number, "food", ordered_food)
+        return self._get_table_order_report(table_number, "food", ordered_food)
 
     def order_drink(self, table_number: int, *ordered_drinks: tuple) -> str:
-        return self._check_table_availability(table_number, "drinks", ordered_drinks)
+        return self._get_table_order_report(table_number, "drinks", ordered_drinks)
 
     def leave_table(self, table_number: int) -> str:
-        for table in self.tables_repository:
-            if table.table_number == table_number:
-                table_bill = table.get_bill()
-                self.total_income += table_bill
-                table.clear()
-                return f"Table: {table_number}\n" \
-                       f"Bill: {table_bill:.2f}"
+        table = self._find_table_by_number(table_number)
+        if table is not None:
+            table_bill = table.get_bill()
+            self.total_income += table_bill
+            table.clear()
+            return f"Table: {table_number}\n" \
+                   f"Bill: {table_bill:.2f}"
 
     def get_free_tables_info(self) -> str:
         info = []
