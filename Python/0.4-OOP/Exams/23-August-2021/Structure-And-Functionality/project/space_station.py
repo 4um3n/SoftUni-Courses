@@ -42,9 +42,7 @@ class SpaceStation:
         if not suitable_astronauts:
             raise Exception(f"You need at least one astronaut to explore the planet!")
 
-        if len(suitable_astronauts) > 5:
-            return suitable_astronauts[:5]
-        return suitable_astronauts
+        return suitable_astronauts[:5]
 
     def add_astronaut(self, astronaut_type: str, name: str) -> str:
         if astronaut_type not in SpaceStation.__ASTRONAUTS_CREATION_MAPPER:
@@ -69,7 +67,7 @@ class SpaceStation:
     def retire_astronaut(self, name: str) -> str:
         astronaut = self.astronaut_repository.find_by_name(name)
         if astronaut is None:
-            raise Exception(f"Astronaut {name} doesn't exists!")
+            raise Exception(f"Astronaut {name} doesn't exist!")
 
         self.astronaut_repository.remove(astronaut)
         return f"Astronaut {name} was retired!"
@@ -89,4 +87,4 @@ class SpaceStation:
         return f"{self.successful_missions} successful missions!\n" \
                f"{self.unsuccessful_missions} missions were not completed!\n" \
                f"Astronauts' info:\n" \
-               f"{repr(self.astronaut_repository)}"
+               f"{str(self.astronaut_repository)}"

@@ -27,7 +27,7 @@ class Astronaut(ABC):
     def increase_oxygen(self, amount: int) -> None:
         self.oxygen += amount
 
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
         backpack = f"none" if not self.backpack else ", ".join(self.backpack)
         return f"Name: {self.name}\n" \
                f"Oxygen: {self.oxygen}\n" \

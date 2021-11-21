@@ -23,5 +23,5 @@ class AstronautRepository:
     def get_suitable_astronauts(self):
         return [ast for ast in sorted(self.astronauts, key=lambda a: -a.oxygen) if ast.oxygen > 30]
 
-    def __repr__(self) -> str:
-        return '\n'.join([repr(astronaut) for astronaut in self.astronauts])
+    def __str__(self) -> str:
+        return '\n'.join([str(astronaut) for astronaut in self.astronauts])
