@@ -5,12 +5,13 @@ from project.appliances.laptop import Laptop
 
 
 class YoungCouple(Room):
-    __DEFAULT_ROOM_MEMBERS_COUNT = 2
-    __DEFAULT_ROOM_COST = 20
-    __DEFAULT_APPLIANCES = [TV(), Fridge(), Laptop()]
+    __ROOM_COST = 20
+    __MEMBERS_COUNT = 2
+    __ROOM_APPLIANCES = [TV(), Fridge(), Laptop()]
 
     def __init__(self, family_name: str, salary_one: float, salary_two: float) -> None:
-        super().__init__(family_name, salary_one + salary_two, YoungCouple.__DEFAULT_ROOM_MEMBERS_COUNT)
-        self.room_cost = YoungCouple.__DEFAULT_ROOM_COST
-        self.appliances = YoungCouple.__DEFAULT_APPLIANCES * 2
+        budget = salary_one + salary_two
+        super().__init__(family_name, budget, self.__MEMBERS_COUNT)
+        self.room_cost = self.__ROOM_COST
+        self.appliances = self.__ROOM_APPLIANCES * self.members_count
         self.calculate_expenses(self.appliances)
