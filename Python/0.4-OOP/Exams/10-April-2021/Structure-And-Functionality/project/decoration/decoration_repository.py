@@ -11,9 +11,8 @@ class DecorationRepository:
             return True
         return False
 
-    def find_by_type(self, decoration_type: str):
+    def find_by_type(self, decoration_type: str) -> str:
         for decoration in self.decorations:
             if type(decoration).__name__ == decoration_type:
                 return decoration
-
         return f"None"

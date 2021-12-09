@@ -2,9 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class BaseFish(ABC):
-    FISH_SIZE_INCREASING_VALUE = 5
-
-    def __init__(self, name: str, species: str, size: int, price: float):
+    def __init__(self, name: str, species: str, size: int, price: float) -> None:
         self.name = name
         self.species = species
         self.size = size
@@ -18,7 +16,6 @@ class BaseFish(ABC):
     def name(self, value):
         if not value:
             raise ValueError(f"Fish name cannot be an empty string.")
-
         self.__name = value
 
     @property
@@ -29,7 +26,6 @@ class BaseFish(ABC):
     def species(self, value):
         if not value:
             raise ValueError(f"Fish species cannot be an empty string.")
-
         self.__species = value
 
     @property
@@ -40,9 +36,8 @@ class BaseFish(ABC):
     def price(self, value):
         if value <= 0:
             raise ValueError(f"Price cannot be equal to or below zero.")
-
         self.__price = value
 
     @abstractmethod
-    def eat(self):
+    def eat(self) -> None:
         pass
