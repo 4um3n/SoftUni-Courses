@@ -1,38 +1,43 @@
 from project.train.train import Train
-from unittest import TestCase, main
+from unittest import  TestCase, main
 
 
 class TrainTests(TestCase):
     def setUp(self) -> None:
-        self.train = Train("name", 10)
+        self.train = Train("Test", 2)
 
-    def test_init_train(self) -> None:
-        self.assertEqual("name", self.train.name)
-        self.assertEqual(10, self.train.capacity)
+    def test_structure_initialization(self):
+        self.assertEqual("Test", self.train.name)
+        self.assertEqual(2, self.train.capacity)
         self.assertListEqual([], self.train.passengers)
 
-    def test_add_passenger_train_full_raises(self) -> None:
-        self.train.passengers = ["test"] * 10
+    def test_add_passenger_not_enough_capacity_raises(self):
+        self.train.passengers = ["FIRST", "SECOND"]
         with self.assertRaises(ValueError) as ex:
-            self.train.add("name")
-        self.assertEqual(f"Train is full", str(ex.exception))
-
-    def test_add_passenger_exists_raises(self) -> None:
-        result = self.train.add("name")
-        self.assertEqual(f"Added passenger name", result)
-        self.assertListEqual(["name"], self.train.passengers)
-        with self.assertRaises(ValueError) as ex:
-            self.train.add("name")
-        self.assertEqual(f"Passenger name Exists", str(ex.exception))
-
-    def test_remove_passenger_not_found_raises(self) -> None:
-        self.train.passengers = ["name"]
-        result = self.train.remove("name")
-        self.assertEqual(f"Removed name", result)
+            self.train.add("Test")
+        expected = f"Train is full"
+        self.assertEqual(expected, str(ex.exception))
+    
+    def test_add_passenger_exist_raises(self):
         self.assertListEqual([], self.train.passengers)
+        result = self.train.add("Passenger")
+        expected = f"Added passenger Passenger"
+        self.assertEqual(expected, result)
+        self.assertListEqual(["Passenger"], self.train.passengers)
         with self.assertRaises(ValueError) as ex:
-            self.train.remove("name")
-        self.assertEqual(f"Passenger Not Found", str(ex.exception))
+            self.train.add("Passenger")
+        expected = f"Passenger Passenger Exists"
+        self.assertEqual(expected, str(ex.exception))
+
+    def test_remove_passenger_not_found_raises(self):
+        self.train.add("Passenger")
+        result = self.train.remove("Passenger")
+        expected = f"Removed Passenger"
+        self.assertEqual(expected, result)
+        with self.assertRaises(ValueError) as ex:
+            self.train.remove("Passenger")
+        expected = f"Passenger Not Found"
+        self.assertEqual(expected, str(ex.exception))
 
 
 if __name__ == '__main__':
