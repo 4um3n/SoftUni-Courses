@@ -1,6 +1,5 @@
 from project.race import Race
 from project.driver import Driver
-from project.car.car import Car
 from project.car.muscle_car import MuscleCar
 from project.car.sports_car import SportsCar
 
@@ -36,6 +35,7 @@ class Controller:
     def create_race(self, race_name: str) -> str:
         if self._find_race_by_name(race_name) is not None:
             raise Exception(f"Race {race_name} is already created!")
+        
         race = Race(race_name)
         self.races.append(race)
         return f"Race {race_name} is created."
@@ -78,15 +78,15 @@ class Controller:
 
     def start_race(self, race_name: str) -> str:
         race = self._find_race_by_name(race_name)
+        
         if race is None:
             raise Exception(f"Race {race_name} could not be found!")
-
         if not race.can_start:
             raise Exception(f"Race {race_name} cannot start with less than 3 participants!")
 
         return race.start()
 
-    def _find_car_by_model(self, model: str) -> Car:
+    def _find_car_by_model(self, model: str):
         for car in self.cars:
             if car.model == model:
                 return car
