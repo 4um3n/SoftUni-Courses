@@ -1,4 +1,4 @@
-"""petstagram URL Configuration
+"""todo URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -18,6 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('petstagram.common.urls')),
-    path('pets/', include('petstagram.pets.urls')),
+    path('', include('todo_app.urls')),
 ]

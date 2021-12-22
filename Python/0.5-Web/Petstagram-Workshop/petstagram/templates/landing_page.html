@@ -14,13 +14,14 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-               <a class="nav-link" href="#">Home</a>
-               <li class="nav-item">
-                  <a class="nav-link" href="#">Login</a> 
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="#">Sign Up</a>
-               </li>
+                <li><a class="nav-link" href="{% url 'landing page' %}">Home</a></li>
+                <li><a class="nav-link" href="{% url 'pet all' %}">List All Pets</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sign Up</a>
+                </li>
             </ul>
          </div>
       </nav>
