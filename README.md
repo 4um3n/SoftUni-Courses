@@ -4,10 +4,6 @@
 
 [logo]: https://softuni.bg/content/images/svg-logos/software-university-logo.svg "https://softuni.bg/trainings/courses"
 
-<br/>
-<br/>
-<br/>
-
 # <h2> Certificates </h2>
 
 | **Course**                                                                                                        | **Certificate**                                                                                     | 
