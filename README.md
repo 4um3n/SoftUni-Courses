@@ -1,10 +1,11 @@
-# <h1 align="center"> Courses from my education @ <a href="https://softuni.bg" >softuni.bg</a> <h1>
+<h1 align="center"> Courses from my education @ <a href="https://softuni.bg" >softuni.bg</a> <h1>
 
 <a href="https://softuni.bg/trainings/courses" rel="Courses">  ![SoftUni logo][logo] <a/>
 
 [logo]: https://softuni.bg/content/images/svg-logos/software-university-logo.svg "https://softuni.bg/trainings/courses"
 
-# <h2> Certificates </h2>
+
+<h2> Certificates </h2>
 
 | **Course**                                                                                                        | **Certificate**                                                                                     | 
 |-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
