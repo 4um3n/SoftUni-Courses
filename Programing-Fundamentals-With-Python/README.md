@@ -1,4 +1,4 @@
-# <a href="https://softuni.bg/trainings/3207/programming-basics-with-python-january-2021" >Programing Baics with Python</a>
+# <a href="https://softuni.bg/trainings/3368/python-fundamentals-may-2021" >Programing Fundamentals with Python</a>
 
 <h2>Exercises</h2>
 
