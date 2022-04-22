@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New TODO</title>
+    <link rel="stylesheet" href="/static/todo_app/index.css">
+</head>
+<body>
+<h1>Fill out the form!</h1>
+<div class="container">
+    <form action="{% url 'save_todo' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value='Save Todo'>
+        <a class="btn btn-primary" href="{% url 'index' %}">Return</a>
+    </form>
+</div>
+</body>
+</html>
