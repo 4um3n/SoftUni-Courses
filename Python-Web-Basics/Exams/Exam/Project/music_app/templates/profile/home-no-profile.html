@@ -1,0 +1,42 @@
+{% extends "core/base.html" %}
+{% block main %}
+    {% block with-profile %}
+    {% endblock %}
+    <!--Home Page-->
+    <div class="container-inline">
+        <section id="welcomePage">
+            <div id="welcome-message">
+                <h1>Welcome to</h1>
+                <h1>My Music App!</h1>
+            </div>
+            <div class="music-img">
+                <img src="/media/images/musicIcons.webp" alt="music-icon">
+            </div>
+        </section>
+
+        <!-- Registration -->
+        <section id="registerPage">
+            <form method="post">
+                {% csrf_token %}
+                <fieldset>
+                    <legend>Profile</legend>
+                    <!-- Form for Registration -->
+                    <label for="username">Username:</label>
+                    {{ form.username }}
+                    {{ form.username.errors }}
+
+                    <label for="email">Email:</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+
+                    <label for="age">Age:</label>
+                    {{ form.age }}
+                    {{ form.age.errors }}
+
+                    <!-- Button to Create Profile -->
+                    <button type="submit" class="register">Enter</button>
+                </fieldset>
+            </form>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+        <title>Notes</title>
+    </head>
+
+    <body>
+        <!--navigation bar-->
+        <header>
+            <nav>
+                <ul>
+                    <li class="img"><img src="/media/images/note.png" alt=""/></li>
+                    <li><a href="/">Notes</a></li>
+                    <li class="right"><a href="{% url "profile" %}">Profile</a></li>
+                </ul>
+            </nav>
+        </header>
+        <!--end navigation bar-->
+
+        <div class="body">
+            <!--headings-->
+            <h1>Add Note</h1>
+            <!--headings-->
+
+            <!--note data form-->
+            <div class="form">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Publish" />
+                </form>
+            </div>
+            <!--end note data form-->
+        </div>
+
+        <!--footer-->
+        <footer>
+            <div>Python Web Basics Exam @SoftUni</div>
+        </footer>
+        <!--end footer-->
+    </body>
+</html>

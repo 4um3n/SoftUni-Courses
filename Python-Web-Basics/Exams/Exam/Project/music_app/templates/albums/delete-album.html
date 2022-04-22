@@ -1,0 +1,42 @@
+{% extends "core/base.html" %}
+{% block main %}
+<!--Edit Page-->
+<section class="editPage">
+    <form method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Delete Album</legend>
+            <div class="container">
+
+                <!-- Form for Editing Album -->
+                <label for="name">Album Name:</label>
+                {{ form.album_name }}
+                {{ form.album_name.errors }}
+
+                <label for="artist">Artist:</label>
+                {{ form.artist }}
+                {{ form.artist.errors }}
+
+                <label for="genre">Genre:</label>
+                {{ form.genre }}
+                {{ form.genre.errors }}
+
+                <label for="description">Description:</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+
+                <label for="imgUrl">Image URL:</label>
+                {{ form.image_url }}
+                {{ form.image_url.errors }}
+
+                <label for="price">Price:</label>
+                {{ form.price }}
+                {{ form.price.errors }}
+
+                <!-- Button for Deleting an Album -->
+                <button class="delete-album" type="submit">Delete Album</button>
+            </div>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}

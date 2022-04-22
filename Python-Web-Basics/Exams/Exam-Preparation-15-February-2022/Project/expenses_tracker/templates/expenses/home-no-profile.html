@@ -1,0 +1,43 @@
+{% extends "core/base.html" %}
+{% block navigation %}
+    <nav>
+        <ul>
+            <li class="img"><img src="/media/images/static/dollar.png" alt="dollar"></li>
+            <li><a href="{% url "home" %}">Expenses Tracker</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+{% block main %}
+    <div class="body">
+        <h1>Enter your data</h1>
+        <!-- Profile Create Form -->
+        <div class="form">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ profile_form.budget.errors }}
+                <label for="budget">Budget</label>
+                {{ profile_form.budget }}
+                {#            <input type="number" name="budget" required="" id="budget">#}
+
+                {{ profile_form.first_name.errors }}
+                <label for="firstName">First Name</label>
+                {{ profile_form.first_name }}
+                {#            <input type="text" name="first_name" maxlength="15" required="" id="firstName">#}
+
+                {{ profile_form.last_name.errors }}
+                <label for="lastName">Last Name</label>
+                {{ profile_form.last_name }}
+                {#            <input type="text" name="last_name" maxlength="15" required="" id="lastName">#}
+
+                {{ profile_form.profile_picture.errors }}
+                <label for="image">Profile Image:</label>
+                {{ profile_form.profile_picture }}
+                {#            <input type="file" class="form-file" name="last_name" id="image">#}
+
+                <!-- Profile Create Button -->
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <!-- End Profile Create Form -->
+    </div>
+{% endblock %}

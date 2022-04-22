@@ -1,0 +1,35 @@
+{% extends "core/base.html" %}
+{% block main %}
+<div class="body">
+    <h1>Delete Expense</h1>
+    <!-- Create Expense Form -->
+    <div class="form">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.title.errors }}
+            <label for="title">Title:</label>
+            {{ form.title }}
+            {#            <input type="text" name="title" maxlength="30" id="title" required>#}
+
+            {{ form.description.errors }}
+            <label for="description">Description:</label>
+            {{ form.description }}
+            {#            <textarea name="description" cols="40" rows="10" id="description"></textarea>#}
+
+            {{ form.expense_image.errors }}
+            <label for="imageUrl">Link to Image:</label>
+            {{ form.expense_image }}
+            {#            <input type="url" name="image_url" required id="imageUrl">#}
+
+            {{ form.price.errors }}
+            <label for="price">Price:</label>
+            {{ form.price }}
+            {#            <input type="number" name="price" step="any" required id="price">#}
+            <!-- Create Button -->
+
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+    <!-- End Create Expense Form -->
+</div>
+{% endblock %}

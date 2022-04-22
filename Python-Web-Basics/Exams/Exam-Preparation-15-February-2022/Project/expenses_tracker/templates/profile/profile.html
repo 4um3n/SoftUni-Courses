@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block main %}
+    <div class="body">
+        <!-- Your Profile Data -->
+        <h1>Your Profile</h1>
+        <div class="expenses-container">
+            <div class="expense-container">
+                <!-- Full Name -->
+                <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+                <!-- Profile Image -->
+                <img src="{{ profile.profile_picture.url }}" alt="profile pic">
+                <!-- Profile Description -->
+                <!-- Total Items Bought -->
+                <p>Total Items Bought: {{ profile.expense_set.count }}</p>
+                <!-- Budget Left -->
+                <p>Budget Left: {{ profile.budget|floatformat:2 }}$</p>
+                <div class="right">
+                    <!-- Edit Profile Button -->
+                    <a class="button edit" href="{% url "profile edit" %}">Edit Profile</a>
+                    <!-- Delete Profile Button -->
+                    <a class="button delete" href="{% url "profile delete" %}">Delete Profile</a>
+                </div>
+            </div>
+        </div>
+        <!-- End Your Profile Data -->
+    </div>
+{% endblock %}
