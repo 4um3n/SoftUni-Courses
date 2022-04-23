@@ -1,0 +1,9 @@
+{% extends "common/heading.html" %}
+{% block nav-buttons %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url "login" %}">Login</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url "sign up" %}">Sign Up</a>
+    </li>
+{% endblock %}

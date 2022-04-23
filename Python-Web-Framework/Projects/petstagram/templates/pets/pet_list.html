@@ -1,0 +1,20 @@
+{% extends "common/base.html" %}
+{% block main %}
+    <div class="container">
+        <h1 class='text-center'>All pet photos</h1>
+        <div class="row">
+            {% for pet in pets %}
+                <div class="col-lg-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src={{ pet.image_url.url }} class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pet.type }} {{ pet.name }}, Age: {{ pet.age }}</h5>
+                            <p class="card-text">{{ pet.description }}</p>
+                            <a href="{% url 'pet details' pet.id %}" class="btn btn-primary">See details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

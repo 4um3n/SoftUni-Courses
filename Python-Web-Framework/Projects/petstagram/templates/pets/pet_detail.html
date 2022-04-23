@@ -1,0 +1,53 @@
+{% extends "common/base.html" %}
+{% block main %}
+    <div class="container">
+        <div class="d-flex">
+            <div class="d-inline p-2 w-50">
+                <img src="{{ pet.image_url.url }}" class="w-50 rounded mx-auto d-block">
+            </div>
+            <div class="d-inline p-2 w-50">
+                <div class="d-flex justify-content-between">
+                    <h5><u>Type:</u> {{ pet.type }}</h5>
+                    <h5><u>Name:</u> {{ pet.name }}</h5>
+                    <h5><u>Age:</u> {{ pet.age }}</h5>
+                    <h5><u>Owner:</u> {{ pet.user.user.username }}</h5>
+                </div>
+                <p class="mt-2">Description: {{ pet.description }}</p>
+                {% if pet.user.user == request.user %}
+                    <a href="{% url "edit pet" pet.pk %}" class="btn btn-success">Edit</a>
+                    <a href="{% url "delete pet" pet.pk %}" class="btn btn-danger">Delete</a>
+                {% else %}
+                    {% if is_liked %}
+                        <a href="{% url 'like pet' pet.pk %}"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                    {% else %}
+                        <a href="{% url 'like pet' pet.pk %}"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                    {% endif %}
+                {% endif %}
+                <p class="mt-2">Likes: {{ pet.likes }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="d-block" style="background-color: #f1e3e3; padding:2%">
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="box">
+                    <h5><em>{{ comment.comment }}</em></h5>
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="box">
+                <h3>There are no comments for this pet. </h3>
+            </div>
+        {% endif %}
+        {% if pet.user.user != request.user %}
+        <div class="box">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary mt-2" type="submit">Add comment</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

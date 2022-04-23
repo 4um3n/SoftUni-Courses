@@ -1,0 +1,16 @@
+{% extends "common/base.html" %}
+{% block main %}
+    <main>
+        <form style="margin: 30px auto; display: flex; flex-direction: column; align-items: center;" method="post">
+            {% csrf_token %}
+{#            <img style="max-width: 300px; max-height: 300px;" src="{{ profile.picture }}" alt="a">#}
+{#            {{ form.picture }}#}
+{#            {{ form.website }}#}
+{#            {{ form.description }}#}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">
+                Update
+            </button>
+        </form>
+    </main>
+{% endblock %}

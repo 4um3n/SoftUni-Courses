@@ -1,0 +1,11 @@
+{% extends 'common/base.html' %}
+{% load complete_profile_notification %}
+{% block main %}
+    <h1 class="text-center">All Pythons</h1>
+    <div class="d-flex p-3">
+        {% for python in pythons %}
+            {% include 'pythons_app/python_detail.html' with python=python %}
+        {% endfor %}
+    </div>
+    {% profile_complete_notification %}
+{% endblock %}

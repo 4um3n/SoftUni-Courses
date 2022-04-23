@@ -1,0 +1,19 @@
+{% extends 'common/base.html' %}
+{% block main %}
+    <form enctype="multipart/form-data" class="col-lg-6 offset-lg-3" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            {{ form.description }}
+        </div>
+        <div class="custom-file">
+            <label class="custom-file-label" for="image">Choose Image File</label>
+            {{ form.image }}
+        </div>
+        <input type="submit" value="Create" class="btn btn-primary mt-3">
+    </form>
+{% endblock %}

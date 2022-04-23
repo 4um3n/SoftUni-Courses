@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="navbar-brand">PythonsWiki</div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'create' %}">Add new Python</a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        {% if request.user.is_authenticated %}
+            <span style="color: white; margin-right: 10px">Hello, {{ request.user.username }}</span>
+            <a style="color: rgba(255, 255, 255, 0.5);" href="{% url "sign out" %}">Sign out</a>
+        {% else %}
+            <a style="color: rgba(255, 255, 255, 0.5);" href="{% url "sign in" %}">Sign in</a>
+            <a style="color: rgba(255, 255, 255, 0.5);" href="{% url "sign up" %}">Sign up</a>
+        {% endif %}
+    </div>
+</nav>

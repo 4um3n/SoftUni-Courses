@@ -1,0 +1,12 @@
+{% extends "common/landing_base.html" %}
+{% block main %}
+<div class="container">
+    <form class="w-50 m-auto" method="post" style="border: 1px solid grey; margin: 10% 0%; padding: 5% 5%"
+          action="{% url "login" %}">
+        {% csrf_token %}
+        <h2>Login</h2>
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+{% endblock %}

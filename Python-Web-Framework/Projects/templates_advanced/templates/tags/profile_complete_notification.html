@@ -1,0 +1,3 @@
+{% if not is_complete %}
+    <p style="text-align: center; font-size: 25px;" >Your profile is incomplete! Complete it <a href="{% url "profile details" %}">here</a>!</p>
+{% endif %}

@@ -1,0 +1,44 @@
+{% extends "common/base.html" %}
+{% block main %}
+    <div class="text-center">
+        <h1>Hello, {{ profile.user.username }}!</h1>
+        <h5>This is your profile</h5>
+        <img class="rounded-circle mb-3" src="{{ profile.profile_picture.url }}" alt="Generic placeholder image"
+             width="140" height="140">
+        <div class="w-50 m-auto">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                    Update
+                </button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    {% if pets %}
+        <h2 class='text-center'>These are you pet photos</h2>
+        <div class="row">
+            <div class="row">
+                {% for pet in pets %}
+                <div class="col-lg-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ pet.image_url.url}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pet.type }} {{ pet.name }}, Age: {{ pet.age }}</h5>
+                            <p class="card-text">pet_description</p>
+                            <p class="card-text"><strong>Owner: {{ pet.user.user.username }}</strong></p>
+                            <a href="{% url "pet details" pet.pk %}" class="btn btn-primary">See details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h2>You have no pets</h2>
+            <a href="{% url "create pet" %}" class="btn btn-success">Add Pet Photo</a>
+        </div>
+    {% endif %}
+{% endblock %}
