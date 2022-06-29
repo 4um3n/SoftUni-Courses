@@ -34,21 +34,6 @@ function solve() {
         return args.some(el => el.trim().length === 0);
     }
 
-    function resetFields(...fields) {
-        const values = {
-            'make': '',
-            'model': '',
-            'year': '',
-            'fuel': '',
-            'original-cost': '',
-            'selling-price': ''
-        };
-
-        fields.forEach(function(field) {
-            field.value = values[field.id];
-        });
-    }
-
     function handleForm(event) {
         event.preventDefault();
     }
@@ -93,7 +78,7 @@ function solve() {
             tr.appendChild(buttonsWrapper);
             tableBody.appendChild(tr);
 
-            resetFields(...Object.values(inputFields));
+            setInputFieldsValues('', '', '', '', '' ,'');
         }
     }
 
