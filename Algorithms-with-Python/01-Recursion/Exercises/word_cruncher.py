@@ -17,9 +17,7 @@ def get_solutions(ind: int, target: str, words_by_ind: dict, words_count: dict, 
         used_words.pop()
 
 
-def main():
-    words = input().split(', ')
-    target = input()
+def get_words_mappers(words, target):
     words_by_ind = {}
     words_count = {}
 
@@ -43,7 +41,13 @@ def main():
         except ValueError:
             pass
 
-    get_solutions(0, target, words_by_ind, words_count)
+    return words_by_ind, words_count
+
+
+def main():
+    words = input().split(', ')
+    target = input()
+    get_solutions(0, target, *get_words_mappers(words, target))
 
 
 if __name__ == '__main__':

@@ -1,9 +1,8 @@
 class Area:
-    def __init__(self, row, col, size, number):
+    def __init__(self, row, col, size):
         self.row = row
         self.col = col
         self.size = size
-        self.number = number
 
     def __str__(self):
         return f"({self.row}, {self.col}), size: {self.size}"
@@ -17,20 +16,23 @@ class AreasFounder:
         self.area_cls = area_cls
         self.areas = []
 
+    def __is_inbound(self, row, col):
+        return 0 <= row < self.rows and 0 <= col < self.cols
+
+    def __is_wall(self, row, col):
+        return self.field[row][col] == '*'
+
+    def __is_visited(self, row, col):
+        return self.field[row][col] == 'v'
+
     def _get_area_size(self, row, col):
-        def is_inbound():
-            return 0 <= row < len(self.field) and 0 <= col < len(self.field[row])
-
-        def is_wall():
-            return self.field[row][col] == '*'
-
-        def is_visited():
-            return self.field[row][col] == 'v'
-
-        if not is_inbound() or is_wall() or is_visited():
+        if not self.__is_inbound(row, col) \
+                or self.__is_wall(row, col) \
+                or self.__is_visited(row, col):
             return 0
 
         self.field[row][col] = 'v'
+
         size = 1
         size += self._get_area_size(row + 1, col)
         size += self._get_area_size(row - 1, col)
@@ -39,11 +41,13 @@ class AreasFounder:
         return size
 
     def get_areas(self):
-        for r in range(self.rows):
-            for c in range(self.cols):
-                size = self._get_area_size(r, c)
+        for row in range(self.rows):
+            for col in range(self.cols):
+                size = self._get_area_size(row, col)
                 if size > 0:
-                    self.areas.append(self.area_cls(r, c, size, len(self.areas) + 1))
+                    self.areas.append(self.area_cls(row, col, size))
+
+        return self.areas
 
     def __str__(self):
         message = [f"Total areas found: {len(self.areas)}"]
