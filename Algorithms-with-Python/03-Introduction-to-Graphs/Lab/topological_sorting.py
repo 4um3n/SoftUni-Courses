@@ -22,30 +22,30 @@ def topological_sort(nodes, dependencies):
     return f'Topological sorting: {", ".join(sorted_nodes)}'
 
 
-def get_dependencies(nodes):
-    dependencies = {}
+def get_edges(graph):
+    edges = {}
 
-    for node, children in nodes.items():
-        if node not in dependencies:
-            dependencies[node] = 0
+    for node, children in graph.items():
+        if node not in edges:
+            edges[node] = 0
 
         for child in children:
-            if child not in dependencies:
-                dependencies[child] = 0
-            dependencies[child] += 1
+            if child not in edges:
+                edges[child] = 0
+            edges[child] += 1
 
-    return dependencies
+    return edges
 
 
 def main():
-    nodes = {}
+    graph = {}
 
     for _ in range(int(input())):
         node, children = [el.strip() for el in input().split('->')]
-        nodes[node] = children.split(', ') if children else []
+        graph[node] = children.split(', ') if children else []
 
-    dependencies = get_dependencies(nodes)
-    return topological_sort(nodes, dependencies)
+    edges = get_edges(graph)
+    return topological_sort(graph, edges)
 
 
 if __name__ == '__main__':
