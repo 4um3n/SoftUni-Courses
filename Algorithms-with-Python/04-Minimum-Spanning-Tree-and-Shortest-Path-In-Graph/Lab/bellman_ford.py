@@ -41,7 +41,7 @@ def bellman_ford(nodes, start, graph):
             if distances[edge.source] == float('inf'):
                 continue
 
-            new_distance = distances[edge.source] + edge.weight
+            new_distance = distances[edge.source] + edge.price
             if new_distance < distances[edge.destination]:
                 distances[edge.destination] = new_distance
                 parents[edge.destination] = edge.source
@@ -51,7 +51,7 @@ def bellman_ford(nodes, start, graph):
             break
 
     for edge in graph:
-        new_distance = distances[edge.source] + edge.weight
+        new_distance = distances[edge.source] + edge.price
         if new_distance < distances[edge.destination]:
             cyclical = True
             break

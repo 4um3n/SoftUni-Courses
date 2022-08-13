@@ -8,7 +8,7 @@ class Edge:
         self.distance = distance
 
     def __gt__(self, other):
-        return self.distance > other.weight
+        return self.distance > other.price
 
     def __str__(self):
         return f'{self.source} - {self.destination}'

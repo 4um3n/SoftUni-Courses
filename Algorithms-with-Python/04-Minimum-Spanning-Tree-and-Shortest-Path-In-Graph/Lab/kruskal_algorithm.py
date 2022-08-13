@@ -31,7 +31,7 @@ def kruskal(max_node, graph):
     roots = [n for n in range(max_node + 1)]
     forest = []
 
-    for edge in sorted(graph, key=lambda e: e.weight):
+    for edge in sorted(graph, key=lambda e: e.price):
         source_root = get_root(edge.source, roots)
         destination_root = get_root(edge.destination, roots)
 

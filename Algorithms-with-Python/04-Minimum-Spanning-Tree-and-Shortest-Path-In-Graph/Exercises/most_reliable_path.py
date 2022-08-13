@@ -45,7 +45,7 @@ def dijkstra(nodes_count, source, destination, graph):
 
         for edge in graph[node]:
             child = edge.source if edge.destination == node else edge.destination
-            current_distance = (max_distance * edge.weight) / 100
+            current_distance = (max_distance * edge.price) / 100
 
             if current_distance > distances[child]:
                 distances[child] = current_distance

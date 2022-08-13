@@ -54,7 +54,7 @@ def dijkstra(start, destination, graph):
 
         for edge in graph[node]:
             child = edge.destination
-            current_distance = edge.weight + min_distance
+            current_distance = edge.price + min_distance
 
             if current_distance < distances[child]:
                 parents[child] = node

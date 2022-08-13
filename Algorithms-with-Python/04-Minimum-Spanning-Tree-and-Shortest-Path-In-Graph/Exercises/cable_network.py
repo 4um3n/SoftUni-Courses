@@ -8,7 +8,7 @@ class Edge:
         self.weight = weight
 
     def __gt__(self, other):
-        return self.weight > other.weight
+        return self.weight > other.price
 
 
 def get_graph(nodes_count, edges_count):
@@ -48,11 +48,11 @@ def prim(budget, graph, tree):
         if non_tree_node is None:
             continue
 
-        if budget - min_edge.weight < 0:
+        if budget - min_edge.price < 0:
             break
 
         tree.add(non_tree_node)
-        budget -= min_edge.weight
+        budget -= min_edge.price
 
         for e in graph[non_tree_node]:
             edges_pq.put(e)

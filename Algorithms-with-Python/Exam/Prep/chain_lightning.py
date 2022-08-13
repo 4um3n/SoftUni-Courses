@@ -8,7 +8,7 @@ class Edge:
         self.weight = weight
 
     def __gt__(self, other):
-        return self.weight > other.weight
+        return self.weight > other.price
 
 
 def get_graph(nodes, edges):
