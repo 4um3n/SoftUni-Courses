@@ -103,7 +103,7 @@ ORDER BY department_id;
 
 
 # Problem 13 Employees Average Salaries
-CREATE TABLE `high_paid_employees` AS
+CREATE TABLE IF NOT EXISTS `high_paid_employees` AS
 SELECT *
 FROM employees
 WHERE salary > 30000;
